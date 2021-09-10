@@ -1,0 +1,122 @@
+﻿@using System.Data;
+@model DataTable
+
+@{
+    ViewData["Title"] = "Import Excel File Dynamically";
+}
+
+<div class="container-fluid">
+
+    <form enctype="multipart/form-data" method="post" asp-controller="File" asp-action="ImportExcelFiledynamic" name="input">
+
+        <div class="container_1">
+            @*<div class="block">
+                <label class="form-label" for="lblUploadFile" style="color:red"> Excel file(.xlsx) Only:</label>
+            </div>*@
+           
+            <div class="block">
+                <input type="file" id="fileUpload" name="fileUpload" class="form-control-file inline-element">
+            </div>
+                @*<input type="submit" value="Upload" style="background-color:Highlight" />*@
+        <div class="block"> <button type="submit" id="btnUpload" name="Upload" class="btn btn-info inline-element">Upload</button></div>
+           
+        </div>
+        <div align="right">
+            <button type="submit" id="btnExport" name="Export" class="btn btn-info" formaction="ExportDynamicExcelFile">Export data to Excel</button>
+        </div>
+    </form>
+    <br />
+
+    <div class="row">
+        <!--Show Message if file is uploaded or not-->
+        <span style="color:green;"><b>@ViewBag.Message</b></span>
+
+        <div class="table-responsive text-nowrap">
+
+            @if (ViewBag.dynamicdt != null)
+            {
+                <table class="table table-hover table-striped">
+                    <thead class="thead-dark">
+                        <tr>
+                            <td>
+                                <button type="submit" id="btnExport" name="Export" class="btn btn-info" formaction="ExportDynamicExcelFile">Export data to Excel</button>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            @foreach (DataColumn col in ViewBag.dynamicDt.Columns)
+                            {
+                                <th>@col.ColumnName</th>
+                            }
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (DataRow row in ViewBag.dynamicDt.Rows)
+                        {
+                            <tr>
+                                @foreach (DataColumn col in ViewBag.dynamicDt.Columns)
+                                {
+                                    if (col.ColumnName.ToString().Contains("Url") == true || col.ColumnName.ToString().Contains("URL") == true)
+                                    {
+                                        //string image = @row[col.ColumnName].ToString();
+                                        <td>
+                                            @*<img src="@Url.Content(image)"
+                                                class="rounded-circle"
+                                                height="40" width="40" />*@
+
+                                            <img src="@row[col.ColumnName]"
+                                                 class="rounded-circle"
+                                                 height="50" width="50" />
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td>@row[col.ColumnName]</td>
+                                    }
+
+                                }
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+<script type="text/javascript">
+    var fileExtension;
+    $(function () {
+        $('#btnUpload').on('click', function () {
+            fileExtension = ['xls', 'xlsx'];
+            var filename = $('#fileUpload').val();
+            if (filename.length == 0) {
+
+                alert("Please select a file.");
+                return false;
+            }
+            else {
+                var extension = filename.replace(/^.*\./, '');
+                if ($.inArray(extension, fileExtension) == -1) {
+                    alert("Please select only excel files.");
+                    return false;
+                }
+            }
+        });
+
+        $('#btnExport').on('click', function () {
+            fileExtension = ['xls', 'xlsx'];
+            var filename = $('#fileupload').val();
+            if (filename.length == 0) {
+                alert("Please select a file then Import");
+                return false;
+            }
+        });
+
+    });
+
+</script>

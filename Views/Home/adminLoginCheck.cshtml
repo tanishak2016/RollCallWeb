@@ -1,0 +1,39 @@
+﻿@model RollCall.Models.adminLoginProperties
+@{ ViewData["Title"] = "Admin Login"; }
+
+<div class="wrapper">
+    <div>
+        <form class="form-signin" formaction="adminLoginCheck" style="margin-top:10%" autocomplete="off" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <h6 class="form-signin-heading">Roll Call Web Admin</h6>
+
+            <input type="text" class="form-control" asp-for="userName"  placeholder="User Name" required="" autofocus="" /><br />
+            <input type="password" class="form-control" asp-for="userPassword"  placeholder="Password" required="" />
+            <label class="checkbox">
+                <input type="checkbox" value="remember-me" id="rememberMe" name="rememberMe"> Remember me
+            </label>
+            <button  class="btn btn-lg btn-primary btn-block" asp-controller="Home" asp-action="adminLoginCheck"  >Login</button>
+
+
+        </form>
+    </div>
+</div>
+
+
+
+
+
+@section Scripts {
+
+
+    @*@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}*@
+}
+
+@{ if (TempData["msg"] != null)
+    {
+<script>
+alert('@TempData["msg"]')
+
+</script>
+ } }

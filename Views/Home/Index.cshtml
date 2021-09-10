@@ -1,0 +1,22 @@
+﻿
+
+@{ ViewData["Title"] = "Home Page"; }
+
+
+
+<h1>Index Page</h1>
+
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+@{ if (TempData["msg"] != null)
+    {
+<script>
+                    alert('@TempData["msg"]')
+
+</script>
+ } }

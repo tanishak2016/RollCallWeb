@@ -1,0 +1,154 @@
+﻿@model RollCall.Areas.RollCall.Data.DAL
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css" />
+
+   
+
+     <div class="text-center">        
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">               
+                    <div class="table-responsive">
+                        <table id="tableId" class="table table-responsive cell-border row-border table-hover compact stripe nowrap" cellspacing="0" cellpadding="5" width="100%" style="background-color: lavender;">
+                            <tbody>
+                                <thead>
+                                <tr>
+                                    <th>Rows</th>
+                                    <th>RollNumber</th>
+                                    <th>Name</th>
+                                    <th>FatherName</th>
+                                    <th>Gender</th>
+                                    <th>FaceImage</th>
+                                    <th>FPTemplate</th>
+                                    <th>FPImage</th>
+                                    <th>FingerID</th>
+                                    <th>FPReaderID</th>
+                                    <th>IrisTemplate</th>
+                                    <th>IrisImage</th>
+                                    <th>IrisLR</th>
+                                    <th>IrisReaderID</th>
+                                    <th>QRCodeValid</th>
+                                    <th>QRText</th>
+                                    <th>FaceVerified</th>
+                                    <th>ExamID</th>
+                                    <th>CenterID</th>
+                                    <th>Remarks</th>
+                                    <th>LastUpdated</th>
+                                    <th>ApplicationInfoAppID</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    @section Scripts{
+@*<script src="https://code.jquery.com/jquery-3.5.1.js"></script>*@
+
+        <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+
+
+        <script>          
+        
+        $(function () {
+            LoadTable();
+            $(document).keypress(function (e) {
+                if (e.which == 13) {
+                    LoadTable();
+                }
+            });
+
+           
+        })
+        function LoadTable() {            
+            var baseUrl = window.location.origin;
+            $('#tableId').dataTable().fnDestroy();
+          $('#tableId').dataTable({
+                "pageLength":10,
+                "serverSide": true,
+                "filter": true,
+                "processing": true,
+                "searching":true,
+                "ordering": true,              
+                "deferRender": true,                            
+                 "drawCallback": function () {
+                    $("#dataTable_wrapper").children().eq(1).css("overflow", "auto");
+              },
+              "ajax": {
+                    "type": "POST",
+                    //"url": baseUrl + "Home/_GetList",
+                    "url":baseUrl+"@Url.Action("CandidateDisplay", "Candidate", new { area="RollCall"})",
+                     "contentType": "application/json; charset=utf-8",
+                    //"headers": { 'RequestVerificationToken': $('#__RequestVerificationToken').val() },
+                    "data": function (data) {
+                        return JSON.stringify(data);
+                    }
+                },
+                "columnDefs": [
+                    {                        
+                        "searchable": true,
+                        "orderable": true,
+                        "targets": [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,]
+                    }, {
+                        "targets": [],
+                        "render": $.fn.dataTable.render.text()
+                    }, {
+                        "targets": 1,
+                        "visible": true
+                    }
+                                      
+                ],
+                
+                "columns": [
+                    
+                    /* { "data": "PagingId"},*/
+                    { "data": "rollnumber" },
+                    { "data": "rollnumber"},
+                    { "data": "name" },
+                    { "data": "fathername" },
+                    { "data": "gender" },
+                    { "data": "faceimage" },
+                    { "data": "fptemplate" },
+                    { "data": "fpimage" },
+                    { "data": "fingerid" },
+                    { "data": "fpreaderid" },
+                    { "data": "iristemplate" },
+                    { "data": "irisimage" },
+                    { "data": "irislr" },
+                    { "data": "irisreaderid" },
+                    { "data": "qrcodevalid" },
+                    { "data": "qrtext" },
+                    { "data": "faceverified" },
+                    { "data": "examid" },
+                    { "data": "centerid" },
+                    { "data": "remarks" },
+                    { "data": "lastupdated" },
+                    { "data": "applicationinfoappid"}
+            ],
+
+                "fnRowCallback" : function(nRow, aData, iDisplayIndex){
+                $("td:first", nRow).html(iDisplayIndex +1);
+                 return nRow;
+                },
+                "order": [1, "desc"]
+          })           
+
+        }
+
+        </script>
+    }
+
+
+    @*@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}*@
+
+    @{
+        if (TempData["msg"] != null)
+        {
+            <script>
+alert('@TempData["msg"] ');
+            </script>
+        }
+    }
