@@ -41,10 +41,31 @@ namespace RollCall.Areas.RollCall.Controllers
             
             return View();
         }
+
+        [HttpGet]
         public IActionResult pie()
         {
-
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult pie(DtParameters param)
+        {
+            pieProperties model = new pieProperties();
+            SqlCommand cmd = new SqlCommand("sp_PieDataGet", con);
+            cmd.CommandType = CommandType.StoredProcedure;          
+            DataSet ds = new DataSet();
+            SqlDataAdapter adp = new SqlDataAdapter(cmd);
+            adp.Fill(ds);
+            foreach (DataRow item in ds.Tables[0].Rows)
+            {
+                model.FPReaderIDResult = Convert.ToInt32(item["FPReaderIDResult"]);
+                model.QRCodeValidResult = Convert.ToInt32(item["QRCodeValidResult"]);
+                model.FaceVerifiedResult = Convert.ToInt32(item["FaceVerifiedResult"]);               
+
+            }
+            return Json(model);
+
         }
         [HttpGet]
         public IActionResult CandidateDisplay()

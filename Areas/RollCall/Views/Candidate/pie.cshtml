@@ -8,64 +8,154 @@
 </figure>
 
 
-<script src="https://code.highcharts.com/highcharts.js"></script>
-<script src="https://code.highcharts.com/highcharts-3d.js"></script>
-<script src="https://code.highcharts.com/modules/exporting.js"></script>
-<script src="https://code.highcharts.com/modules/export-data.js"></script>
-<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
+<script type="text/javascript">
 
-<script>
-    Highcharts.chart('container', {
-        chart: {
-            type: 'pie',
-            options3d: {
-                enabled: true,
-                alpha: 45,
-                beta: 0
-            }
-        },
-        title: {
-            text: 'Center Wise Data'
-        },
-        accessibility: {
-            point: {
-                valueSuffix: '%'
-            }
-        },
-        tooltip: {
-            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-        },
-        plotOptions: {
-            pie: {
-                allowPointSelect: true,
-                cursor: 'pointer',
-                depth: 35,
-                dataLabels: {
-                    enabled: true,
-                    format: '{point.name}'
-                }
-            }
-        },
-        series: [{
-            type: 'pie',
-            name: 'Data',
-            data: [
-                ['Karnal', 45.0],
-                ['Rohtak', 26.8],
-                {
-                    name: 'Jind',
-                    y: 12.8,
-                    sliced: true,
-                    selected: true
-                },
-                ['Panipat', 8.5],
-                ['Chandigarh', 6.2],
-                ['Delhi', 0.7]
-            ]
-        }]
+    $(document).ready(function () {
+
     });
+
+
+    $(function () {
+        debugger;
+        //alert();
+            $.ajax({
+                url: '@Url.Action("pie", "Candidate", new { area="RollCall"})',
+                dataType: "json",
+                type: "POST",
+                contentType: 'application/json; charset=utf-8',
+                async: false,
+                processData: false,
+                cache: false,
+                delay: 15,
+                success: function (data) {
+                     //alert(data);
+                    debugger;
+                    var series = new Array();
+                    for (var i in data) {
+                        var serie = new Array(data[i].Value, data[i].Item);
+                        series.push(serie);
+                    }
+                    DrawPieChart(series);
+                },
+                error: function (xhr) {
+                    alert('error');
+                }
+            });
+        });
+        function DrawPieChart(series) {
+            $('#container').highcharts({
+
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: 1, //null,
+                    plotShadow: false
+                },
+                title: {
+                    text: 'Roll Call Data'
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: false
+                        },
+                        showInLegend: true
+                    }
+                },
+                series: [{
+                    type: 'pie',
+                    name: 'Task Status',
+                    data: series
+                }]
+            });
+        }
 </script>
+
+
+
+
+
+
+
+
+
+
+@*<script>
+        $(document).ready(function () {
+         $.getJSON("@Url.Action("pie", "Candidate", new { area="RollCall"})", function (data) {
+               Highcharts.chart('container', {
+                    chart: {
+                        type: 'pie',
+                        options3d: {
+                            enabled: true,
+                            alpha: 45,
+                            beta: 0
+                        }
+                    },
+                    title: {
+                        text: 'RollCall Data'
+                    },
+                    accessibility: {
+                        point: {
+                            valueSuffix: '%'
+                        }
+                    },
+                    tooltip: {
+                        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                    },
+                    plotOptions: {
+                        pie: {
+                            allowPointSelect: true,
+                            cursor: 'pointer',
+                            depth: 35,
+                            dataLabels: {
+                                enabled: true,
+                                format: '{point.name}'
+                            }
+                        }
+                    },
+                    series: [{
+                        type: 'pie',
+                        name: 'Data',
+                        data: [{
+                            name: 'FPReaderIDResult',
+                            y: data.FPReaderIDResult,
+                                sliced: true,
+                                selected: true
+                            },
+                            {
+                                name: 'QRCodeValidResult',
+                                y: data.QRCodeValidResult
+                            },
+                            {
+                                name: 'FaceVerifiedResult',
+                                y: data.FaceVerifiedResult
+                            }]
+                    }]
+                });
+                    });
+                });
+    </script>*@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <style>
     #container {

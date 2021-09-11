@@ -5,8 +5,8 @@ namespace RollCall.Areas.RollCall.Models
 {
     public class DataTableViewModel
     {
-        
-       
+
+
         public Decimal rollnumber { get; set; }
         public string name { get; set; }
         public string fathername { get; set; }
@@ -30,6 +30,7 @@ namespace RollCall.Areas.RollCall.Models
         public string applicationinfoappid { get; set; }
 
         public int Total { get; set; }
+      
         public List<DataTableViewModel> DataTableList { get; set;}
         public DataTableViewModel()
         {
