@@ -37,11 +37,13 @@
                     for (let i in data) {
                         let pieData = {};
                         pieData.name = data[i].name;
-                        pieData.y = data[i].y;
+                        pieData.y = data[i].y;                       
                         series.push(pieData);                       
                     }
+                    
                     DrawPieChart(series);
-                },
+                     },
+
                 error: function (xhr) {
                     alert('error');
                 }
@@ -82,10 +84,14 @@
                         showInLegend: true
                     }
                 },
-                series: [{
+                series: [
+                    {
                         type: 'column',                        
                         data:series
-                    }]
+                    },
+                    
+                    
+                ]
             });
         }
 
