@@ -36,35 +36,57 @@ namespace RollCall.Areas.RollCall.Controllers
         {
             return View();
         }
+        [HttpGet]
        public IActionResult cylender()
         {
             
             return View();
         }
 
-        [HttpGet]
-        public IActionResult pie()
-        {
-            return View();
-        }
-
         [HttpPost]
-        public ActionResult pie(DtParameters param)
+        public IActionResult cylender(DtParameters param)
         {
-            pieProperties model = new pieProperties();
+
+
+            List<pieProperties> pieData = new List<pieProperties>();
             SqlCommand cmd = new SqlCommand("sp_PieDataGet", con);
-            cmd.CommandType = CommandType.StoredProcedure;          
+            cmd.CommandType = CommandType.StoredProcedure;
             DataSet ds = new DataSet();
             SqlDataAdapter adp = new SqlDataAdapter(cmd);
             adp.Fill(ds);
             foreach (DataRow item in ds.Tables[0].Rows)
             {
-                model.FPReaderIDResult = Convert.ToInt32(item["FPReaderIDResult"]);
-                model.QRCodeValidResult = Convert.ToInt32(item["QRCodeValidResult"]);
-                model.FaceVerifiedResult = Convert.ToInt32(item["FaceVerifiedResult"]);               
-
+                pieProperties model = new pieProperties();
+                model.Name = Convert.ToString(item["Name"]);
+                model.Y = Convert.ToInt32(item["Y"]);
+                pieData.Add(model);
             }
-            return Json(model);
+            return Json(pieData);
+        }
+
+
+        [HttpGet]
+        public IActionResult pie()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult pie(DtParameters param)
+        {
+            List<pieProperties> pieData = new List<pieProperties>();
+            SqlCommand cmd = new SqlCommand("sp_PieDataGet", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+            DataSet ds = new DataSet();
+            SqlDataAdapter adp = new SqlDataAdapter(cmd);
+            adp.Fill(ds);
+            foreach (DataRow item in ds.Tables[0].Rows)
+            {
+                pieProperties model = new pieProperties();
+                model.Name = Convert.ToString(item["Name"]);
+                model.Y = Convert.ToInt32(item["Y"]);
+                pieData.Add(model);
+            }
+            return Json(pieData);
 
         }
         [HttpGet]
@@ -78,13 +100,24 @@ namespace RollCall.Areas.RollCall.Controllers
         {
             
             var data = new DataTableViewModel();
-            //SqlCommand cmd = new SqlCommand("sp_CandidateDisplay", con);
             SqlCommand cmd = new SqlCommand("sp_CandidateDisplay", con);
+            //SqlCommand cmd = new SqlCommand("spGetEmployees", con);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@SearchVal", param.Search.Value);
             cmd.Parameters.AddWithValue("@Page", param.Start);
             cmd.Parameters.AddWithValue("@OrderBy", param.SortOrder);
             cmd.Parameters.AddWithValue("@PageSize", param.Length);
+
+
+
+            //DataTableViewModel model1 = new DataTableViewModel();
+            //cmd.Parameters.AddWithValue("@DisplayLength", model1.displaylength);
+            //cmd.Parameters.AddWithValue("@DisplayStart", model1.displaystart);
+            //cmd.Parameters.AddWithValue("@SortCol", model1.sortcol);
+            //cmd.Parameters.AddWithValue("@SortDir", model1.sortdir);
+            //cmd.Parameters.AddWithValue("@Search", model1.search);
+
+
             cmd.CommandTimeout = 120;
             DataSet ds = new DataSet();
             SqlDataAdapter adp = new SqlDataAdapter(cmd);

@@ -12,11 +12,8 @@
 
 <script type="text/javascript">
 
-    $(document).ready(function () {
-
+       $(document).ready(function () {
     });
-
-
     $(function () {
         debugger;
         //alert();
@@ -32,10 +29,12 @@
                 success: function (data) {
                      //alert(data);
                     debugger;
-                    var series = new Array();
-                    for (var i in data) {
-                        var serie = new Array(data[i].Value, data[i].Item);
-                        series.push(serie);
+                    let series = [];
+                    for (let i in data) {
+                        let pieData = {};
+                        pieData.name = data[i].name;
+                        pieData.y = data[i].y;
+                        series.push(pieData);
                     }
                     DrawPieChart(series);
                 },
@@ -50,7 +49,7 @@
                 chart: {
                     plotBackgroundColor: null,
                     plotBorderWidth: 1, //null,
-                    plotShadow: false
+                    plotShadow: true
                 },
                 title: {
                     text: 'Roll Call Data'
@@ -63,15 +62,18 @@
                         allowPointSelect: true,
                         cursor: 'pointer',
                         dataLabels: {
-                            enabled: false
+                            enabled: true,
+                            format: '<span style=color:red;font-size:15px><b>{point.name}</b>: {point.y}</span>',
+
                         },
                         showInLegend: true
                     }
                 },
                 series: [{
                     type: 'pie',
+                    colorByPoint: true,
                     name: 'Task Status',
-                    data: series
+                    data: series,
                 }]
             });
         }

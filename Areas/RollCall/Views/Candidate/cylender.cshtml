@@ -1,74 +1,181 @@
 ﻿
-    <figure class="highcharts-figure">
-        <div id="container"></div>
-        <p class="highcharts-description">
-            Roll Call 3D Chart
-        </p>
-    </figure>
+<figure class="highcharts-figure">
+    <div id="container"></div>
+    
+</figure>
 
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-<script src="https://code.highcharts.com/highcharts.js"></script>
+@*<script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/highcharts-3d.js"></script>
-<script src="https://code.highcharts.com/modules/cylinder.js"></script>
-<script src="https://code.highcharts.com/modules/funnel3d.js"></script>
-<script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>*@
 
-<script>
+
+    <script>
     // Set up the chart
-    Highcharts.chart('container', {
-        chart: {
-            type: 'funnel3d',
-            options3d: {
-                enabled: true,
-                alpha: 10,
-                depth: 50,
-                viewDistance: 50
-            }
-        },
-        title: {
-            text: 'Center Wise Candidate'
-        },
-        plotOptions: {
-            series: {
-                dataLabels: {
-                    enabled: true,
-                    format: '<b>{point.name}</b> ({point.y:,.0f})',
-                    allowOverlap: true,
-                    y: 10
-                },
-                neckWidth: '30%',
-                neckHeight: '25%',
-                width: '80%',
-                height: '80%'
-            }
-        },
-        series: [{
-            name: 'Unique users',
-            data: [
-                ['Karnal', 15654],
-                ['Panipat', 4064],
-                ['Jind', 1987],
-                ['Rohtak', 976],
-                ['Ambala', 846]
-            ]
-        }]
+
+    $(document).ready(function () {
     });
-</script>
+
+     $(function () {
+        debugger;
+                 $.ajax({
+                url: '@Url.Action("cylender", "Candidate", new { area="RollCall"})',
+                dataType: "json",
+                type: "POST",
+                contentType: 'application/json; charset=utf-8',
+                async: false,
+                processData: false,
+                cache: false,
+                delay: 15,
+                success: function (data) {                  
+                    debugger;
+                    let series = [];                    
+                    for (let i in data) {
+                        let pieData = {};
+                        pieData.name = data[i].name;
+                        pieData.y = data[i].y;
+                        series.push(pieData);                       
+                    }
+                    DrawPieChart(series);
+                },
+                error: function (xhr) {
+                    alert('error');
+                }
+            });
+        });
+
+        function DrawPieChart(series) {            
+            $('#container').highcharts({
+
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: 1, //null,
+                    plotShadow: true
+                },
+                title: {
+                    text: 'Roll Call Data'
+                },
+                xAxis: {
+                   categories: ["FPReaderID", "QRCodeValid","FaceVerified"] ,                   
+                    crosshair: true
+                },
+               
+                tooltip: {
+                    //pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                    headerFormat: '<span style="font-size:13px;color:red">{point.key}</span><table>',
+                    pointFormat: '<tr href="#">' + '<td style="padding:0;color:red"><b> {point.percentage:.1f}% </b></td></tr>',
+                    footerFormat: '</table>'
+                },
+                plotOptions: {
+                   column: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: true,
+                            format: '<span style=color:red;font-size:13px>{point.name}: {point.y}</span>',
+                            
+                        },
+                        showInLegend: true
+                    }
+                },
+                series: [{
+                        type: 'column',                        
+                        data:series
+                    }]
+            });
+        }
+
+
+
+
+
+
+
+    //Highcharts.chart('container', {
+    //    title: {
+    //        text: 'Combination chart'
+    //    },
+    //    xAxis: {
+    //        categories: ['Apples', 'Oranges', 'Pears', 'Bananas', 'Plums']
+    //    },
+    //    labels: {
+    //        items: [{
+    //            html: 'Total fruit consumption',
+    //            style: {
+    //                left: '50px',
+    //                top: '18px',
+    //                color: ( // theme
+    //                    Highcharts.defaultOptions.title.style &&
+    //                    Highcharts.defaultOptions.title.style.color
+    //                ) || 'black'
+    //            }
+    //        }]
+    //    },
+    //    series: [{
+    //        type: 'column',
+    //        name: 'Jane',
+    //        data: [3, 2, 1, 3, 4]
+    //    }, {
+    //        type: 'column',
+    //        name: 'John',
+    //        data: [2, 3, 5, 7, 6]
+    //    }, {
+    //        type: 'column',
+    //        name: 'Joe',
+    //        data: [4, 3, 3, 9, 0]
+    //    }, {
+    //        type: 'spline',
+    //        name: 'Average',
+    //        data: [3, 2.67, 3, 6.33, 3.33],
+    //        marker: {
+    //            lineWidth: 2,
+    //            lineColor: Highcharts.getOptions().colors[3],
+    //            fillColor: 'white'
+    //        }
+    //    }, {
+    //        type: 'pie',
+    //        name: 'Total consumption',
+    //        data: [{
+    //            name: 'Jane',
+    //            y: 13,
+    //            color: Highcharts.getOptions().colors[0] // Jane's color
+    //        }, {
+    //            name: 'John',
+    //            y: 23,
+    //            color: Highcharts.getOptions().colors[1] // John's color
+    //        }, {
+    //            name: 'Joe',
+    //            y: 19,
+    //            color: Highcharts.getOptions().colors[2] // Joe's color
+    //        }],
+    //        center: [100, 80],
+    //        size: 100,
+    //        showInLegend: false,
+    //        dataLabels: {
+    //            enabled: false
+    //        }
+    //    }]
+    //});
+    </script>
 
 
 
 
 
 <style>
-    #container {
-        height: 420px;
-    }
 
     .highcharts-figure, .highcharts-data-table table {
-        min-width: 360px;
-        max-width: 600px;
+        min-width: 310px;
+        max-width: 800px;
         margin: 1em auto;
+    }
+
+    #container {
+        height: 400px;
     }
 
     .highcharts-data-table table {
@@ -103,4 +210,5 @@
     .highcharts-data-table tr:hover {
         background: #f1f7ff;
     }
+    
 </style>

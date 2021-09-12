@@ -7,9 +7,9 @@ namespace RollCall.Areas.RollCall.Models
 {
     public class pieProperties
     {
-        public int FPReaderIDResult { get; set; }
+        public string Name { get; set; }
       //  public int irisTotal { get; set; }
-        public int QRCodeValidResult { get; set; }
-        public int FaceVerifiedResult { get; set; }
+        public int Y { get; set; }
+       
     }
 }

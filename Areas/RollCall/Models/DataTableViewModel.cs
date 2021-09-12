@@ -30,6 +30,20 @@ namespace RollCall.Areas.RollCall.Models
         public string applicationinfoappid { get; set; }
 
         public int Total { get; set; }
+
+
+
+
+        public int displaylength { get; set; }
+        public int displaystart { get; set; }
+        public int sortcol { get; set; }
+        public  string sortdir { get; set; }
+        public string search { get; set; }
+
+
+
+
+
       
         public List<DataTableViewModel> DataTableList { get; set;}
         public DataTableViewModel()

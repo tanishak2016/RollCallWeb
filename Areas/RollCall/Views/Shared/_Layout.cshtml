@@ -13,6 +13,9 @@
     <link href="~/css/excelFileDynamic.css" rel="stylesheet" />
     @*<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />*@
     @*<link href="~/css/site.css" rel="stylesheet" />*@
+
+    <link rel="stylesheet"  href="https://code.highcharts.com/css/highcharts.css"/>
+
 </head>
 <body>
     <div class="d-flex" id="wrapper">
@@ -22,8 +25,8 @@
             <div class="list-group list-group-flush">
                 <a class="list-group-item list-group-item-action list-group-item-light p-3" href="@Url.Action("CandidateDisplay","Candidate",new {area="RollCall" })" style="background-color:aliceblue">Candidates List</a>
                 <a class="list-group-item list-group-item-action list-group-item-light p-3" href="@Url.Action("ImportExcelFiledynamic","File",new {area="RollCall"})" style="background-color:aliceblue">Get Excel Images</a>
-                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!" style="background-color:aliceblue">Menue1</a>
-                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!" style="background-color:aliceblue">Menue2</a>
+                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="@Url.Action("pie","Candidate",new {area="RollCall" })" style="background-color:aliceblue">Pie Graph</a>
+                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="@Url.Action("cylender","Candidate",new {area="RollCall" })" style="background-color:aliceblue">Bar Graph</a>
                 <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!" style="background-color:aliceblue">Menue3</a>
                 <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!" style="background-color:aliceblue">Menue4</a>
             </div>
@@ -33,7 +36,7 @@
             <!-- Top navigation-->
             <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
                 <div class="container-fluid">
-                    <button class="btn btn-primary" id="sidebarToggle">Toggle Menu</button>
+                    <button class="btn btn-primary" id="sidebarToggle">Full Screen</button>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
