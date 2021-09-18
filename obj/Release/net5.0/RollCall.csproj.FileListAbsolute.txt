@@ -354,3 +354,5 @@ G:\RollCallWeb\obj\Release\net5.0\RollCall.dll
 G:\RollCallWeb\obj\Release\net5.0\ref\RollCall.dll
 G:\RollCallWeb\obj\Release\net5.0\RollCall.pdb
 G:\RollCallWeb\obj\Release\net5.0\RollCall.genruntimeconfig.cache
+G:\RollCallWeb\obj\Release\net5.0\Razor\Areas\RollCall\Views\Candidate\GetCenterDetails.cshtml.g.cs
+G:\RollCallWeb\obj\Release\net5.0\Razor\Areas\RollCall\Views\Candidate\Dashboard.cshtml.g.cs

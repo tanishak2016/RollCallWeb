@@ -1,11 +1,14 @@
-﻿
+﻿<div id="containerTop">
+    <div id="totaldiv"><label id="total" class=lbl></label></div>
+    <div id="presentdiv"><label id="totalPresent" class=lbl></label></div>
+    <div id="absentdiv"><label id="totalAbsent" class=lbl></label></div>
+</div>
 
-<figure class="highcharts-figure">
-    <div id="container"></div>
-    <p class="highcharts-description">
-        RollCall 3D Pie Chart
-    </p>
-</figure>
+@*<figure class="highcharts-figure">
+        <div id="container"></div>
+
+    </figure>*@
+<div id="container"></div>
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -15,8 +18,7 @@
        $(document).ready(function () {
     });
     $(function () {
-        debugger;
-        //alert();
+      
             $.ajax({
                 url: '@Url.Action("pie", "Candidate", new { area="RollCall"})',
                 dataType: "json",
@@ -27,54 +29,93 @@
                 cache: false,
                 delay: 15,
                 success: function (data) {
-                     //alert(data);
-                    debugger;
-                    let series = [];
-                    for (let i in data) {
-                        let pieData = {};
-                        pieData.name = data[i].name;
-                        pieData.y = data[i].y;
-                        series.push(pieData);
+                    
+                    var totalStrenght = 0;
+                    var totalPresent = 0;
+                    var totalAbsent = 0;
+                   let series = [];
+                    let presentSeries = [];
+                    let absentSeries = [];
+                    for (let i in data) {                       
+                            //let pieData = {};
+                            //pieData.name = data[i].name;
+                            //pieData.y = data[i].y;
+                            //series.push(pieData);
+
+
+                            if (data[i].location == 'AMBALA') {
+                                debugger;
+                                let pieData = {};
+                                let presentData = {};
+                                totalStrenght += data[i].total;
+                                pieData.name = data[i].location;
+                                pieData.y = data[i].total;
+                                pieData.present = data[i].present;
+                                pieData.absent = data[i].absent;
+                               // presentSeries.push(data[i].present);
+                                totalPresent += data[i].present;
+                                //absentSeries.push(data[i].absent)
+                                totalAbsent += data[i].absent;
+                                series.push(pieData);  
+
+                              
+
+                            }
+                            else {
+
+                            }
+                        
                     }
+                    var TotalStrenght = 'Total ' + ':' + totalStrenght + '';
+                    var TotalPresent = 'Present ' + ':' + totalPresent + '';
+                    var TotalAbsent = 'Absent' + ':' + totalAbsent + '';
+                    $('#total').text(TotalStrenght);
+                    $('#totalPresent').text(TotalPresent);
+                    $('#totalAbsent').text(TotalAbsent);
+
+
                     DrawPieChart(series);
                 },
                 error: function (xhr) {
                     alert('error');
                 }
             });
-        });
-        function DrawPieChart(series) {
-            $('#container').highcharts({
+    });
 
-                chart: {
-                    plotBackgroundColor: null,
-                    plotBorderWidth: 1, //null,
-                    plotShadow: true
-                },
-                title: {
-                    text: 'Roll Call Data'
-                },
-                tooltip: {
-                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-                },
-                plotOptions: {
-                    pie: {
-                        allowPointSelect: true,
-                        cursor: 'pointer',
-                        dataLabels: {
-                            enabled: true,
-                            format: '<span style=color:red;font-size:15px><b>{point.name}</b>: {point.y}</span>',
+    function DrawPieChart(series) {
+        //$('#lblPresent').text(series[3].y);
+        //$('#lblAbsent').text(series[3].y - series[0].y);
 
-                        },
-                        showInLegend: true
-                    }
-                },
-                series: [{
-                    type: 'pie',
-                    colorByPoint: true,
-                    name: 'Task Status',
-                    data: series,
-                }]
+        $('#container').highcharts({
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: 1, //null,
+                plotShadow: true
+            },
+            title: {
+                text: ''
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        format: '<span style=color:red;font-size:15px><b>{point.name}</b>: {point.y}</span>',
+
+                    },
+                    showInLegend: true
+                }
+            },
+            series: [{
+                type: 'pie',
+                colorByPoint: true,
+                name: 'Task Status',
+                data: series
+            }]
             });
         }
 </script>
@@ -160,8 +201,27 @@
 
 
 <style>
+    .lbl {
+        font-size: 155%;
+        color: white;
+        margin-left: 18%;
+        margin-top: 6%;
+    }
+
+    #containerTop {
+        display: flex;
+        justify-content: space-between;
+        background-color: lightyellow;
+    }
+
+        #containerTop > div {
+            width: 264px;
+            height: 82px;
+            border: 2px dashed red;
+            background: linear-gradient(to right, #001fff, yellow);
+        }
     #container {
-        height: 400px;
+        height: 500px;
     }
 
     .highcharts-figure, .highcharts-data-table table {

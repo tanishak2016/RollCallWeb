@@ -10,6 +10,8 @@ namespace RollCall.Areas.RollCall.Models
         public string Name { get; set; }
       //  public int irisTotal { get; set; }
         public int Y { get; set; }
-       
+        public int Total { get; set; }
+
+
     }
 }

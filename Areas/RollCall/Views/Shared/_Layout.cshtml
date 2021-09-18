@@ -4,6 +4,7 @@
 
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    @*<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">*@
     <meta name="description" content="" />
     <meta name="author" content="" />
     <title>@ViewData["Title"] - Roll Call</title>
@@ -14,7 +15,7 @@
     @*<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />*@
     @*<link href="~/css/site.css" rel="stylesheet" />*@
 
-    <link rel="stylesheet"  href="https://code.highcharts.com/css/highcharts.css"/>
+    <link rel="stylesheet" href="https://code.highcharts.com/css/highcharts.css" />
 
 </head>
 <body>
@@ -24,11 +25,11 @@
             <div class="sidebar-heading border-bottom bg-light">Roll Call Web Portal</div>
             <div class="list-group list-group-flush">
                 <a class="list-group-item list-group-item-action list-group-item-light p-3" href="@Url.Action("CandidateDisplay","Candidate",new {area="RollCall" })" style="background-color:aliceblue">Candidates List</a>
-                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="@Url.Action("ImportExcelFiledynamic","File",new {area="RollCall"})" style="background-color:aliceblue">Get Excel Images</a>
+                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="@Url.Action("ImportExcelFiledynamic","File",new {area="RollCall"})" style="background-color: aliceblue; display: none">Get Excel Images</a>
                 <a class="list-group-item list-group-item-action list-group-item-light p-3" href="@Url.Action("pie","Candidate",new {area="RollCall" })" style="background-color:aliceblue">Pie Graph</a>
-                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="@Url.Action("cylender","Candidate",new {area="RollCall" })" style="background-color:aliceblue">Bar Graph</a>
-                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!" style="background-color:aliceblue">Menue3</a>
-                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!" style="background-color:aliceblue">Menue4</a>
+                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="@Url.Action("Dashboard","Candidate",new {area="RollCall" })" style="background-color:aliceblue">Bar Graph</a>
+                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!" style="background-color:aliceblue;display:none">Menue3</a>
+                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!" style="background-color: aliceblue; display: none">Menue4</a>
             </div>
         </div>
         <!-- Page content wrapper-->
@@ -38,8 +39,8 @@
                 <div class="container-fluid">
                     <button class="btn btn-primary" id="sidebarToggle">Full Screen</button>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent" >
+                        <ul class="navbar-nav ms-auto mt-2 mt-lg-0" style="display: none">
                             <li class="nav-item active"><a class="nav-link" href="#!">Home</a></li>
                             <li class="nav-item"><a class="nav-link" href="#!">Link</a></li>
                             <li class="nav-item dropdown">
