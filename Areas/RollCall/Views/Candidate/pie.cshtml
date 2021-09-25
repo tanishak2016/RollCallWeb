@@ -1,24 +1,43 @@
-﻿<div id="containerTop">
-    <div id="totaldiv"><label id="total" class=lbl></label></div>
-    <div id="presentdiv"><label id="totalPresent" class=lbl></label></div>
-    <div id="absentdiv"><label id="totalAbsent" class=lbl></label></div>
+﻿<div class="container" id="containerTop">
+    <div class="row">
+        <div class="col-3">
+            <div id="districtDiv"><label id="districtlabel" class=lbl></label></div>
+        </div>
+        <div class="col-3">
+            <div id="totaldiv"><label id="total" class=lbl></label></div>
+        </div>
+        <div class="col-3">
+            <div id="presentdiv"><label id="totalPresent" class=lbl></label></div>
+        </div>
+        <div class="col-3">
+            <div id="absentdiv"><label id="totalAbsent" class=lbl></label></div>
+        </div>
+    </div>
 </div>
 
 @*<figure class="highcharts-figure">
         <div id="container"></div>
 
     </figure>*@
-<div id="container"></div>
+<div id="container">
+
+</div>
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <script type="text/javascript">
 
-       $(document).ready(function () {
+    $(document).ready(function () {
+
+        setTimeout(function () {
+           // alert('Reloading Page');
+            location.reload(true);
+        }, 10000);
+
     });
-    $(function () {
-      
+    $(function () {    
+
             $.ajax({
                 url: '@Url.Action("pie", "Candidate", new { area="RollCall"})',
                 dataType: "json",
@@ -29,49 +48,61 @@
                 cache: false,
                 delay: 15,
                 success: function (data) {
-                    
+
                     var totalStrenght = 0;
                     var totalPresent = 0;
                     var totalAbsent = 0;
-                   let series = [];
+                    var totalPercentage = 0;
+                    let series = [];
                     let presentSeries = [];
                     let absentSeries = [];
-                    for (let i in data) {                       
-                            //let pieData = {};
-                            //pieData.name = data[i].name;
-                            //pieData.y = data[i].y;
-                            //series.push(pieData);
+                    for (let i in data) {
+                        //let pieData = {};
+                        //pieData.name = data[i].name;
+                        //pieData.y = data[i].y;
+                        //series.push(pieData);
 
 
-                            if (data[i].location == 'AMBALA') {
-                                debugger;
-                                let pieData = {};
-                                let presentData = {};
-                                totalStrenght += data[i].total;
-                                pieData.name = data[i].location;
-                                pieData.y = data[i].total;
-                                pieData.present = data[i].present;
-                                pieData.absent = data[i].absent;
-                               // presentSeries.push(data[i].present);
-                                totalPresent += data[i].present;
-                                //absentSeries.push(data[i].absent)
-                                totalAbsent += data[i].absent;
-                                series.push(pieData);  
+                        if (data[i].location == 'Ambala') {
+                            debugger;
+                            let pieDataTotal = {};
+                            let pieDataPresent = {};
+                            let pieDataAbsent = {};
+                            let presentData = {};
+                            totalStrenght += data[i].total;
+                            pieDataTotal.name = 'Total';
+                            pieDataTotal.y = data[i].total;
+                            series.push(pieDataTotal);
+                            pieDataPresent.name = 'Present';
+                            pieDataPresent.y = data[i].present;
+                            series.push(pieDataPresent);
+                            pieDataAbsent.name = 'Absent';
+                            pieDataAbsent.y = data[i].absent;
+                            series.push(pieDataAbsent);
+                            // presentSeries.push(data[i].present);
+                            totalPresent += data[i].present;
+                            //absentSeries.push(data[i].absent)
+                            totalAbsent += data[i].absent;
 
-                              
 
-                            }
-                            else {
 
-                            }
-                        
+                            $('#districtlabel').text(data[i].location);
+
+                        }
+                        else {
+
+                        }
+
                     }
+                    totalPercentage = ((totalPresent / 100) * totalStrenght).toFixed(2);
                     var TotalStrenght = 'Total ' + ':' + totalStrenght + '';
-                    var TotalPresent = 'Present ' + ':' + totalPresent + '';
+                    // var TotalPresent = 'Present ' + ':' + totalPresent + '';
+                    var TotalPresent = 'Present ' + ':' + totalPresent + '(' + totalPercentage + '%' + ')';
                     var TotalAbsent = 'Absent' + ':' + totalAbsent + '';
                     $('#total').text(TotalStrenght);
                     $('#totalPresent').text(TotalPresent);
                     $('#totalAbsent').text(TotalAbsent);
+
 
 
                     DrawPieChart(series);
@@ -80,7 +111,12 @@
                     alert('error');
                 }
             });
+
+
+
+       
     });
+
 
     function DrawPieChart(series) {
         //$('#lblPresent').text(series[3].y);
@@ -96,7 +132,8 @@
                 text: ''
             },
             tooltip: {
-                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            //    pointFormat: '{series.name}: <b>{point.y}</b>'
+                pointFormat: '{series.name}: <br>{point.percentage:.1f} %<br>value: {point.y}'
             },
             plotOptions: {
                 pie: {
@@ -201,28 +238,8 @@
 
 
 <style>
-    .lbl {
-        font-size: 155%;
-        color: white;
-        margin-left: 18%;
-        margin-top: 6%;
-    }
+    
 
-    #containerTop {
-        display: flex;
-        justify-content: space-between;
-        background-color: lightyellow;
-    }
-
-        #containerTop > div {
-            width: 264px;
-            height: 82px;
-            border: 2px dashed red;
-            background: linear-gradient(to right, #001fff, yellow);
-        }
-    #container {
-        height: 500px;
-    }
 
     .highcharts-figure, .highcharts-data-table table {
         min-width: 310px;

@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 using RollCall.Areas.RollCall.Models;
 using static RollCall.Areas.RollCall.Models.DataTableHelper;
 
-namespace RollCall.Areas.RollCall.Data
+namespace RollCall.Areas.evening.Data
 {
     public class DAL
     {

@@ -18,24 +18,34 @@
     <link rel="stylesheet" href="https://code.highcharts.com/css/highcharts.css" />
 
 </head>
-<body>
+<body class="fullScreen_page">
     <div class="d-flex" id="wrapper">
         <!-- Sidebar-->
         <div class="border-end" id="sidebar-wrapper" style="background-color:aliceblue">
             <div class="sidebar-heading border-bottom bg-light">Roll Call Web Portal</div>
             <div class="list-group list-group-flush">
-                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="@Url.Action("CandidateDisplay","Candidate",new {area="RollCall" })" style="background-color:aliceblue">Candidates List</a>
-                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="@Url.Action("ImportExcelFiledynamic","File",new {area="RollCall"})" style="background-color: aliceblue; display: none">Get Excel Images</a>
-                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="@Url.Action("pie","Candidate",new {area="RollCall" })" style="background-color:aliceblue">Pie Graph</a>
-                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="@Url.Action("Dashboard","Candidate",new {area="RollCall" })" style="background-color:aliceblue">Bar Graph</a>
-                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!" style="background-color:aliceblue;display:none">Menue3</a>
-                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!" style="background-color: aliceblue; display: none">Menue4</a>
+                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="@Url.Action("CandidateDisplay","Candidate",new {area="RollCall" })">Candidates List</a>
+                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="@Url.Action("ImportExcelFiledynamic","File",new {area="RollCall"})" style="display: none">Get Excel Images</a>
+                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="@Url.Action("Dashboard","Candidate",new {area="RollCall" })" >Bar Graph</a>
+                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="@Url.Action("pie","Candidate",new {area="RollCall" })" >Ambala</a>
+                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="@Url.Action("KURUKSHETRA","Candidate",new {area="RollCall" })" >Kurukshetra</a>
+                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="@Url.Action("PANCHKULA","Candidate",new {area="RollCall" })" >Panchkula</a>
+                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="@Url.Action("YAMUNANAGAR","Candidate",new {area="RollCall" })">Yamunanagar</a>
+                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="@Url.Action("KARNAL","Candidate",new {area="RollCall" })">Karnal</a>
+                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="@Url.Action("FARIDABAD","Candidate",new {area="RollCall" })" >Faridabad</a>
+                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="@Url.Action("GURUGRAM","Candidate",new {area="RollCall" })" >Gurugram</a>
+                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="@Url.Action("MAHENDRAGARH","Candidate",new {area="RollCall" })" >Mahendragarh</a>
+                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="@Url.Action("PANIPAT","Candidate",new {area="RollCall" })">Panipat</a>
+                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="@Url.Action("REWARI","Candidate",new {area="RollCall" })">Rewari</a>
+
+
+
             </div>
         </div>
         <!-- Page content wrapper-->
-        <div id="page-content-wrapper" style="background-color:lavender">
+        <div id="page-content-wrapper" style="background-color: #eff1f7">
             <!-- Top navigation-->
-            <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+            <nav class="navbar navbar-expand-lg navbar-light  ">
                 <div class="container-fluid">
                     <button class="btn btn-primary" id="sidebarToggle">Full Screen</button>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
@@ -57,7 +67,7 @@
                 </div>
             </nav>
             <!-- Page content-->
-            <div class="container-fluid">
+            <div class=" table_layout">
                 @*<h4 class="mt-4">Candidate List</h4>*@
                 @RenderBody()
             </div>

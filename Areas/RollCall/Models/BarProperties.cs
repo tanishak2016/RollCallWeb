@@ -14,5 +14,7 @@ namespace RollCall.Areas.RollCall.Models
         public double Present { get; set; }
 
         public double Absent { get; set; }
+
+       
     }
 }

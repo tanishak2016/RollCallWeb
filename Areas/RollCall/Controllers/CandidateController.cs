@@ -18,6 +18,7 @@ namespace RollCall.Areas.RollCall.Controllers
     [Area("RollCall")]
     public class CandidateController : Controller
     {
+        
         DAL dal = new DAL();
 
         SqlConnection con = new SqlConnection();
@@ -78,7 +79,7 @@ namespace RollCall.Areas.RollCall.Controllers
             List<BarProperties> barchartData = new List<BarProperties>();
             using (var httpClient = new HttpClient())
             {
-                using (var response = httpClient.GetAsync("http://52.140.82.221/api/CenterDetail"))
+                using (var response = httpClient.GetAsync("http://13.71.52.38/api/CenterDetail"))
                 {
                     string apiResponse = response.Result.Content.ReadAsStringAsync().Result;
                     var settings = new JsonSerializerSettings
@@ -88,7 +89,7 @@ namespace RollCall.Areas.RollCall.Controllers
                     };
                     centerData = JsonConvert.DeserializeObject<List<Center>>(apiResponse, settings);
                 }
-                using (var response = httpClient.GetAsync("http://52.140.82.221/api/CenterDetail/LocationCount"))
+                using (var response = httpClient.GetAsync("http://13.71.52.38/api/CenterDetail/LocationCount"))
                 {
                     string apiResponse = response.Result.Content.ReadAsStringAsync().Result;
                     var settings = new JsonSerializerSettings
@@ -140,7 +141,8 @@ namespace RollCall.Areas.RollCall.Controllers
 
         [HttpGet]
         public IActionResult pie()
-        {
+        {           
+           
             return View();
         }
         [HttpPost]
@@ -162,13 +164,13 @@ namespace RollCall.Areas.RollCall.Controllers
             //}
             //return Json(pieData);
             //
-
+            
             List<Center> centerData;
             Dictionary<string, double> locationData = new Dictionary<string, double>();
             List<BarProperties> barchartData = new List<BarProperties>();
             using (var httpClient = new HttpClient())
             {
-                using (var response = httpClient.GetAsync("http://52.140.82.221/api/CenterDetail"))
+                using (var response = httpClient.GetAsync("http://13.71.52.38/api/CenterDetail"))
                 {
                     string apiResponse = response.Result.Content.ReadAsStringAsync().Result;
                     var settings = new JsonSerializerSettings
@@ -178,7 +180,7 @@ namespace RollCall.Areas.RollCall.Controllers
                     };
                     centerData = JsonConvert.DeserializeObject<List<Center>>(apiResponse, settings);
                 }
-                using (var response = httpClient.GetAsync("http://52.140.82.221/api/CenterDetail/LocationCount"))
+                using (var response = httpClient.GetAsync("http://13.71.52.38/api/CenterDetail/LocationCount"))
                 {
                     string apiResponse = response.Result.Content.ReadAsStringAsync().Result;
                     var settings = new JsonSerializerSettings
@@ -192,21 +194,76 @@ namespace RollCall.Areas.RollCall.Controllers
             
             foreach (var location in locationData.Keys)
             {
+               
                 BarProperties barProperty = new BarProperties();
                 barProperty.Total = centerData.Where(c => c.location == location).Sum(c => c.capacity);
                 barProperty.Location = location;
                 barProperty.Present = locationData[location];
-                barProperty.Absent = barProperty.Total - barProperty.Present;
+                barProperty.Absent = barProperty.Total - barProperty.Present;                
                 barchartData.Add(barProperty);
             }
             return Json(barchartData);
 
-
-
-
-
-
         }
+
+
+        [HttpGet]
+        public IActionResult KARNAL()
+        {
+            return View();
+        }        
+
+        [HttpGet]
+        public IActionResult KURUKSHETRA()
+        {
+            return View();
+        }       
+
+
+        [HttpGet]
+        public IActionResult PANCHKULA()
+        {
+            return View();
+        }       
+
+
+        [HttpGet]
+        public IActionResult YAMUNANAGAR()
+        {
+            return View();
+        }       
+
+        [HttpGet]
+        public IActionResult FARIDABAD()
+        {
+            return View();
+        }       
+
+        [HttpGet]
+        public IActionResult GURUGRAM()
+        {
+            return View();
+        }      
+
+
+        [HttpGet]
+        public IActionResult MAHENDRAGARH()
+        {
+            return View();
+        }
+        [HttpGet]
+        public IActionResult PANIPAT()
+        {
+            return View();
+        }
+        [HttpGet]
+        public IActionResult REWARI()
+        {
+            return View();
+        }
+       
+
+
         [HttpGet]
         public IActionResult CandidateDisplay()
         {
@@ -232,6 +289,7 @@ namespace RollCall.Areas.RollCall.Controllers
             DataSet ds = new DataSet();
             SqlDataAdapter adp = new SqlDataAdapter(cmd);
             adp.Fill(ds);
+            var recordCount = ds.Tables[0].Rows.Count;
             foreach (DataRow item in ds.Tables[0].Rows)
             {
                 DataTableViewModel model = new DataTableViewModel();
@@ -289,7 +347,7 @@ namespace RollCall.Areas.RollCall.Controllers
             //{
             //    using (var response = await httpclient.GetAsync("http://52.140.82.221/api/CenterDetail"))
             //    {                 
-                    
+
             //        string apiResponse = await response.Content.ReadAsStringAsync();
             //        var settings = new JsonSerializerSettings
             //        {
@@ -336,9 +394,9 @@ namespace RollCall.Areas.RollCall.Controllers
             {
                 Draw = param.Draw,
                 Data = data.DataTableList.ToList(),
-                RecordsFiltered = data.Total,
+                RecordsFiltered = (String.IsNullOrWhiteSpace(param.Search.Value)) ? data.Total : recordCount,
                 RecordsTotal = data.Total
-            };          
+            };
 
             return Json(helper);
 
