@@ -74,12 +74,12 @@ namespace RollCall.Areas.RollCall.Controllers
         [HttpGet]
         public IActionResult DashboardBarChart()
         {
-            List<Center> centerData;
+             List<Center> centerData;            
             Dictionary<string, double> locationData = new Dictionary<string, double>();
             List<BarProperties> barchartData = new List<BarProperties>();
             using (var httpClient = new HttpClient())
             {
-                using (var response = httpClient.GetAsync("http://13.71.52.38/api/CenterDetail"))
+                using (var response = httpClient.GetAsync("Http://20.204.232.149/api/Report/CenterCount"))
                 {
                     string apiResponse = response.Result.Content.ReadAsStringAsync().Result;
                     var settings = new JsonSerializerSettings
@@ -87,9 +87,9 @@ namespace RollCall.Areas.RollCall.Controllers
                         NullValueHandling = NullValueHandling.Ignore,
                         MissingMemberHandling = MissingMemberHandling.Ignore
                     };
-                    centerData = JsonConvert.DeserializeObject<List<Center>>(apiResponse, settings);
+                     centerData= JsonConvert.DeserializeObject<List<Center>>(apiResponse, settings);
                 }
-                using (var response = httpClient.GetAsync("http://13.71.52.38/api/CenterDetail/LocationCount"))
+                using (var response = httpClient.GetAsync("Http://20.204.232.149/api/Report/LocationCount"))
                 {
                     string apiResponse = response.Result.Content.ReadAsStringAsync().Result;
                     var settings = new JsonSerializerSettings

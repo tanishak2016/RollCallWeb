@@ -7,7 +7,7 @@
     @*<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">*@
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>@ViewData["Title"] - Roll Call</title>
+    <title>@ViewData["Title"] Roll Call - Evening</title>
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="~/css/styles.css" rel="stylesheet" />
@@ -29,14 +29,14 @@
                 <a class="list-group-item list-group-item-action list-group-item-light p-3" href="@Url.Action("Dashboard","Candidate",new {area="evening" })" >Bar Graph</a>
                 <a class="list-group-item list-group-item-action list-group-item-light p-3" href="@Url.Action("pie","Candidate",new {area="evening" })" >Ambala</a>
                 <a class="list-group-item list-group-item-action list-group-item-light p-3" href="@Url.Action("KURUKSHETRA","Candidate",new {area="evening" })" >Kurukshetra</a>
-                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="@Url.Action("PANCHKULA","Candidate",new {area="evening" })" >Panchkula</a>
+                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="@Url.Action("PANCHKULA","Candidate",new {area="evening" })" style="display:none" >Panchkula</a>
                 <a class="list-group-item list-group-item-action list-group-item-light p-3" href="@Url.Action("YAMUNANAGAR","Candidate",new {area="evening" })">Yamunanagar</a>
                 <a class="list-group-item list-group-item-action list-group-item-light p-3" href="@Url.Action("KARNAL","Candidate",new {area="evening" })">Karnal</a>
-                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="@Url.Action("FARIDABAD","Candidate",new {area="evening" })" >Faridabad</a>
-                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="@Url.Action("GURUGRAM","Candidate",new {area="evening" })" >Gurugram</a>
-                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="@Url.Action("MAHENDRAGARH","Candidate",new {area="evening" })" >Mahendragarh</a>
+                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="@Url.Action("FARIDABAD","Candidate",new {area="evening" })" style="display:none">Faridabad</a>
+                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="@Url.Action("GURUGRAM","Candidate",new {area="evening" })"  style="display:none">Gurugram</a>
+                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="@Url.Action("MAHENDRAGARH","Candidate",new {area="evening" })" style="display:none" >Mahendragarh</a>
                 <a class="list-group-item list-group-item-action list-group-item-light p-3" href="@Url.Action("PANIPAT","Candidate",new {area="evening" })">Panipat</a>
-                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="@Url.Action("REWARI","Candidate",new {area="evening" })">Rewari</a>
+                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="@Url.Action("REWARI","Candidate",new {area="evening" })" style="display:none">Rewari</a>
 
 
 
@@ -47,7 +47,7 @@
             <!-- Top navigation-->
             <nav class="navbar navbar-expand-lg navbar-light  ">
                 <div class="container-fluid">
-                    <button class="btn btn-primary" id="sidebarToggle">Full Screen</button>
+                    <button class="btn btn-primary" id="sidebarToggle" style="display:none">Full Screen</button>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent" >
                         <ul class="navbar-nav ms-auto mt-2 mt-lg-0" style="display: none">

@@ -7,7 +7,7 @@
     @*<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">*@
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>@ViewData["Title"] - Roll Call</title>
+    <title>@ViewData["Title"] Roll Call - Main</title>
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="~/css/styles.css" rel="stylesheet" />
@@ -33,7 +33,7 @@
                 <a class="list-group-item list-group-item-action list-group-item-light p-3" href="@Url.Action("YAMUNANAGAR","Candidate",new {area="RollCall" })">Yamunanagar</a>
                 <a class="list-group-item list-group-item-action list-group-item-light p-3" href="@Url.Action("KARNAL","Candidate",new {area="RollCall" })">Karnal</a>
                 <a class="list-group-item list-group-item-action list-group-item-light p-3" href="@Url.Action("FARIDABAD","Candidate",new {area="RollCall" })" >Faridabad</a>
-                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="@Url.Action("GURUGRAM","Candidate",new {area="RollCall" })" >Gurugram</a>
+                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="@Url.Action("GURUGRAM","Candidate",new {area="RollCall" })"  style="display:none" >Gurugram</a>
                 <a class="list-group-item list-group-item-action list-group-item-light p-3" href="@Url.Action("MAHENDRAGARH","Candidate",new {area="RollCall" })" >Mahendragarh</a>
                 <a class="list-group-item list-group-item-action list-group-item-light p-3" href="@Url.Action("PANIPAT","Candidate",new {area="RollCall" })">Panipat</a>
                 <a class="list-group-item list-group-item-action list-group-item-light p-3" href="@Url.Action("REWARI","Candidate",new {area="RollCall" })">Rewari</a>
@@ -47,9 +47,18 @@
             <!-- Top navigation-->
             <nav class="navbar navbar-expand-lg navbar-light  ">
                 <div class="container-fluid">
-                    <button class="btn btn-primary" id="sidebarToggle">Full Screen</button>
+                    <button class="btn btn-primary" id="sidebarToggle">Full Screen</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                    <a class="btn btn-outline-danger" href="@Url.Action("CandidateDisplay","Candidate",new {area="morning" })" target="_blank">Morning Shift</a>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                    <a class="btn btn-outline-danger" href="@Url.Action("CandidateDisplay","Candidate",new {area="evening" }) " target="_blank">Evening Shift</a>
+
+
+
+
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent" >
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav ms-auto mt-2 mt-lg-0" style="display: none">
                             <li class="nav-item active"><a class="nav-link" href="#!">Home</a></li>
                             <li class="nav-item"><a class="nav-link" href="#!">Link</a></li>

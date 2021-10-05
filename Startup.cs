@@ -90,6 +90,13 @@ namespace RollCall
             {
 
 
+
+                endpoints.MapAreaControllerRoute(
+                  name: "morning",
+                  areaName: "morning",
+                  pattern: "morning/{controller=Candidate}/{action=CandidateDisplay}");
+
+
                 endpoints.MapAreaControllerRoute(
                   name: "evening",
                   areaName: "evening",

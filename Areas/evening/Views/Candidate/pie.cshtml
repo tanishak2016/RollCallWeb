@@ -2,36 +2,23 @@
 
 
 
-    <div class="container">
-        <div class="row">
-            <div class="col-3">
-                <div id="districtDiv">
-
-                   <input class="form-control" type="text" placeholder="Present Value" id="present">
-
-
-                    <input type="button" id="btnSend" name="Send" value="Send" />
-
-
-                </div>
-            </div>
-
+<div class="container">
+    <div class="row">
+        <div class="col-3">
+            <div id="districtDiv" style="display:inline-flex">
+                <input class="form-control" type="text" placeholder="Enter Present Value" id="present">&nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="button" id="btnSend" class="btn btn-primary" name="Send" value="Send" />
+            </div>           
         </div>
-
     </div>
-
-
-
-
-
-
+</div>
 <div class="container" id="containerTop">
     <div class="row">
         <div class="col-3">
-            <div id="districtDiv"><label id="districtlabel" class=lbl></label></div>
+            <div id="districtDiv"><label id="districtlabel" class=lbl  >Ambala</label></div>
         </div>
         <div class="col-3">
-            <div id="totaldiv"><label id="total" class=lbl></label></div>
+            <div id="totaldiv"><label id="total" class=lbl>Total : 12200</label></div>
         </div>
         <div class="col-3">
             <div id="presentdiv"><label id="totalPresent" class=lbl></label></div>
@@ -53,38 +40,42 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
+
 <script type="text/javascript">
 
     $(document).ready(function () {
 
         $("#btnSend").click(function () {
             debugger;
-
-           // var Stock = { Present: $("#present").val() };
-
-
             var Present = $("#present").val();      //    Value from text box
-
+            var totalStrenght = 12200;
+            var totalPresent = 0;
+            var totalAbsent = 0;
                 $.ajax({
 
                     type: "POST",
-
                     url: '@Url.Action("pie", "Candidate", new { area="evening"})',
-
                     dataType: "html",
                     data: { "Present": Present},
-
-                   // data: JSON.stringify({ Present }),
-
-                   // contentType: "application/json; charset=utf-8",
-
-                   // dataType: "json",
-
                     success: function (data) {
-                        debugger;                     
+                        debugger;
+                        var pieData = JSON.parse(data);
+                        let series = [];
 
-                       // alert(data.Present);
+                        for (let i in pieData) {
+                            let pieDataObject = {};
+                            pieDataObject.name = pieData[i].name;
+                            pieDataObject.y = pieData[i].y;
+                            series.push(pieDataObject);
+                        }
 
+                       //$.grep(series,(elem) => {return elem.name == 'Absent'})[0];
+                        DrawPieChart(series);
+                       // $('#total').text('Total ' + ':' + series.find(obj => obj.name == 'Total').y);
+
+                        totalPercentage = ((series.find(obj => obj.name == 'Present').y / series.find(obj=>obj.name=='Total').y) * 100).toFixed(2);
+                        $('#totalPresent').text('Present ' + ':' + series.find(obj => obj.name == 'Present').y + '(' + totalPercentage + '%' + ')');
+                        $('#totalAbsent').text('Absent ' + ':' + series.find(obj => obj.name == 'Absent').y);
                     }
 
                 });
@@ -93,7 +84,7 @@
 
 
     });
-    $(function () {
+    @*$(function () {
 
             $.ajax({
                 url: '@Url.Action("pie", "Candidate", new { area="evening"})',
@@ -113,11 +104,7 @@
                    let series = [];
                     let presentSeries = [];
                     let absentSeries = [];
-                    for (let i in data) {
-                            //let pieData = {};
-                            //pieData.name = data[i].name;
-                            //pieData.y = data[i].y;
-                            //series.push(pieData);
+                    for (let i in data) {                        
 
 
                             if (data[i].location == 'Ambala') {
@@ -151,8 +138,8 @@
                             }
 
                     }
-                    totalPercentage = ((totalPresent / 100) * totalStrenght).toFixed(2);
-                    var TotalStrenght = 'Total ' + ':' + totalStrenght + '';
+                    totalPercentage = ((totalPresent / totalStrenght) * 100).toFixed(2);
+                   // var TotalStrenght = 'Total ' + ':' + totalStrenght + '';
                   // var TotalPresent = 'Present ' + ':' + totalPresent + '';
                     var TotalPresent = 'Present ' + ':' + totalPresent + '(' + totalPercentage + '%' + ')';
                     var TotalAbsent = 'Absent' + ':' + totalAbsent + '';
@@ -169,11 +156,10 @@
                     alert('error');
                 }
             });
-    });
+    });*@
 
     function DrawPieChart(series) {
-        //$('#lblPresent').text(series[3].y);
-        //$('#lblAbsent').text(series[3].y - series[0].y);
+        
 
         $('#container').highcharts({
             chart: {
@@ -291,7 +277,7 @@
 
 
 <style>
-    
+
 
 
     .highcharts-figure, .highcharts-data-table table {

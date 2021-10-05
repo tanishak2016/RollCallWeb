@@ -1,10 +1,24 @@
-﻿<div class="container" id="containerTop">
+﻿@model RollCall.Areas.evening.Models.BarProperties
+
+
+
+<div class="container">
     <div class="row">
         <div class="col-3">
-            <div id="districtDiv"><label id="districtlabel" class=lbl></label></div>
+            <div id="districtDiv" style="display:inline-flex">
+                <input class="form-control" type="text" placeholder="Enter Present Value" id="present">&nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="button" id="btnSend" class="btn btn-primary" name="Send" value="Send" />
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container" id="containerTop">
+    <div class="row">
+        <div class="col-3">
+            <div id="districtDiv"><label id="districtlabel" class=lbl>Panipat</label></div>
         </div>
         <div class="col-3">
-            <div id="totaldiv"><label id="total" class=lbl></label></div>
+            <div id="totaldiv"><label id="total" class=lbl>Total : 8325</label></div>
         </div>
         <div class="col-3">
             <div id="presentdiv"><label id="totalPresent" class=lbl></label></div>
@@ -19,21 +33,61 @@
         <div id="container"></div>
 
     </figure>*@
-<div id="container" class="container">
+<div id="container">
 
 </div>
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
+
 <script type="text/javascript">
 
-       $(document).ready(function () {
+    $(document).ready(function () {
+
+        $("#btnSend").click(function () {
+            debugger;
+            var Present = $("#present").val();      //    Value from text box
+            var totalStrenght = 0;
+            var totalPresent = 0;
+            var totalAbsent = 0;
+                $.ajax({
+
+                    type: "POST",
+                    url: '@Url.Action("PANIPAT", "Candidate", new { area="evening"})',
+                    dataType: "html",
+                    data: { "Present": Present},
+                    success: function (data) {
+                        debugger;
+                        var pieData = JSON.parse(data);
+                        let series = [];
+
+                        for (let i in pieData) {
+                            let pieDataObject = {};
+                            pieDataObject.name = pieData[i].name;
+                            pieDataObject.y = pieData[i].y;
+                            series.push(pieDataObject);
+                        }
+
+                       //$.grep(series,(elem) => {return elem.name == 'Absent'})[0];
+                        DrawPieChart(series);
+                       // $('#total').text('Total ' + ':' + series.find(obj => obj.name == 'Total').y);
+
+                        var totalPercentage = ((series.find(obj => obj.name == 'Present').y / series.find(obj => obj.name == 'Total').y) * 100).toFixed(2);
+                        $('#totalPresent').text('Present ' + ':' + series.find(obj => obj.name == 'Present').y + '(' + totalPercentage + '%' + ')');
+                        $('#totalAbsent').text('Absent ' + ':' + series.find(obj => obj.name == 'Absent').y);
+                    }
+
+                });
+
+            });
+
+
     });
-    $(function () {
+    @*$(function () {
 
             $.ajax({
-                url: '@Url.Action("pie", "Candidate", new { area="RollCall"})',
+                url: '@Url.Action("pie", "Candidate", new { area="evening"})',
                 dataType: "json",
                 type: "POST",
                 contentType: 'application/json; charset=utf-8',
@@ -51,13 +105,9 @@
                     let presentSeries = [];
                     let absentSeries = [];
                     for (let i in data) {
-                            //let pieData = {};
-                            //pieData.name = data[i].name;
-                            //pieData.y = data[i].y;
-                            //series.push(pieData);
 
 
-                            if (data[i].location == 'PANIPAT') {
+                            if (data[i].location == 'Ambala') {
                                 debugger;
                                 let pieDataTotal = {};
                                 let pieDataPresent = {};
@@ -79,6 +129,7 @@
                                 totalAbsent += data[i].absent;
 
 
+
                                 $('#districtlabel').text(data[i].location);
 
                             }
@@ -88,12 +139,14 @@
 
                     }
                     totalPercentage = ((totalPresent / totalStrenght) * 100).toFixed(2);
-                    var TotalStrenght = 'Total ' + ':' + totalStrenght + '';
+                   // var TotalStrenght = 'Total ' + ':' + totalStrenght + '';
+                  // var TotalPresent = 'Present ' + ':' + totalPresent + '';
                     var TotalPresent = 'Present ' + ':' + totalPresent + '(' + totalPercentage + '%' + ')';
                     var TotalAbsent = 'Absent' + ':' + totalAbsent + '';
                     $('#total').text(TotalStrenght);
                     $('#totalPresent').text(TotalPresent);
                     $('#totalAbsent').text(TotalAbsent);
+
 
 
 
@@ -103,11 +156,10 @@
                     alert('error');
                 }
             });
-    });
+    });*@
 
     function DrawPieChart(series) {
-        //$('#lblPresent').text(series[3].y);
-        //$('#lblAbsent').text(series[3].y - series[0].y);
+
 
         $('#container').highcharts({
             chart: {
@@ -120,6 +172,7 @@
             },
             tooltip: {
             //    pointFormat: '{series.name}: <b>{point.y}</b>'
+                pointFormat: '{series.name}: <br>{point.percentage:.1f} %<br>value: {point.y}'
             },
             plotOptions: {
                 pie: {
@@ -224,7 +277,8 @@
 
 
 <style>
-   
+
+
 
     .highcharts-figure, .highcharts-data-table table {
         min-width: 310px;

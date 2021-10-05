@@ -86,11 +86,91 @@ namespace RollCall.Areas.evening.Controllers
             foreach (var location in locationData.Keys)
             {
                 BarProperties barProperty = new BarProperties();
-                barProperty.Total = centerData.Where(c => c.location == location).Sum(c => c.capacity);
-                barProperty.Location = location;
-                barProperty.Present = locationData[location];
-                barProperty.Absent = barProperty.Total - barProperty.Present;
-                barchartData.Add(barProperty);
+                //barProperty.Total = centerData.Where(c => c.location == location).Sum(c => c.capacity);
+                //barProperty.Location = location;
+                //barProperty.Present = locationData[location];
+                //barProperty.Absent = barProperty.Total - barProperty.Present;
+                //barchartData.Add(barProperty);
+                if (location == "Ambala")
+                {
+                    //  barProperty.Total = centerData.Where(c => c.location == location).Sum(c => c.capacity);
+                    barProperty.Total = 12200;
+                    barProperty.Location = location;
+                    barProperty.Present = locationData[location];
+                    barProperty.Absent = barProperty.Total - barProperty.Present;
+                    barchartData.Add(barProperty);
+                }
+                //else if (location == "FARIDABAD")
+                //{
+                //    //  barProperty.Total = centerData.Where(c => c.location == location).Sum(c => c.capacity);
+                //    barProperty.Total = 0;
+                //    barProperty.Location = location;
+                //    barProperty.Present = locationData[location];
+                //    barProperty.Absent = barProperty.Total - barProperty.Present;
+                //    barchartData.Add(barProperty);
+
+                //}
+                else if (location == "YAMUNANAGAR")
+                {
+                    barProperty.Total = 8238;
+                    barProperty.Location = location;
+                    barProperty.Present = locationData[location];
+                    barProperty.Absent = barProperty.Total - barProperty.Present;
+                    barchartData.Add(barProperty);
+
+                }
+                else if (location == "KARNAL")
+                {
+                    barProperty.Total = 13150;
+                    barProperty.Location = location;
+                    barProperty.Present = locationData[location];
+                    barProperty.Absent = barProperty.Total - barProperty.Present;
+                    barchartData.Add(barProperty);
+                }
+                else if (location == "Kurukshetra")
+                {
+                    barProperty.Total = 14000;
+                    barProperty.Location = location;
+                    barProperty.Present = locationData[location];
+                    barProperty.Absent = barProperty.Total - barProperty.Present;
+                    barchartData.Add(barProperty);
+                }
+                else if (location == "PANIPAT")
+                {
+                    barProperty.Total = 8325;
+                    barProperty.Location = location;
+                    barProperty.Present = locationData[location];
+                    barProperty.Absent = barProperty.Total - barProperty.Present;
+                    barchartData.Add(barProperty);
+                }
+                //else if (location == "PANCHKULA")
+                //{
+                //    barProperty.Total = 0;
+                //    barProperty.Location = location;
+                //    barProperty.Present = locationData[location];
+                //    barProperty.Absent = barProperty.Total - barProperty.Present;
+                //    barchartData.Add(barProperty);
+                //}
+                //else if (location == "REWARI")
+                //{
+                //    barProperty.Total = 0;
+                //    barProperty.Location = location;
+                //    barProperty.Present = locationData[location];
+                //    barProperty.Absent = barProperty.Total - barProperty.Present;
+                //    barchartData.Add(barProperty);
+                //}
+                //else if (location == "MAHENDRAGARH")
+                //{
+                //    barProperty.Total = 0;
+                //    barProperty.Location = location;
+                //    barProperty.Present = locationData[location];
+                //    barProperty.Absent = barProperty.Total - barProperty.Present;
+                //    barchartData.Add(barProperty);
+                //}
+                else
+                {
+
+                }
             }
             return Json(barchartData);
         }
@@ -145,20 +225,22 @@ namespace RollCall.Areas.evening.Controllers
             //    pieData.Add(model);
             //}
 
+
             int total = 12200;
             int present = Present;
             int absent = total - present;
-            pieProperties model = new pieProperties();
-            model.Name = "Total";
-            model.Y = total;
-
-            model.Name = "Present";
-            model.Y = present;
-
-            model.Name = "Absent";
-            model.Y = absent;
-
-            pieData.Add(model);
+            pieProperties totalModel = new pieProperties();
+            totalModel.Name = "Total";
+            totalModel.Y = total;
+            pieData.Add(totalModel);
+            pieProperties presentModel = new pieProperties();
+            presentModel.Name = "Present";
+            presentModel.Y = present;
+            pieData.Add(presentModel);
+            pieProperties absentModel = new pieProperties();
+            absentModel.Name = "Absent";
+            absentModel.Y = absent;
+            pieData.Add(absentModel);
 
 
             return Json(pieData);
@@ -217,11 +299,187 @@ namespace RollCall.Areas.evening.Controllers
             return View();
         }
 
+
+        [HttpPost]
+        public ActionResult KARNAL(BarProperties param, int Present)
+        {
+            List<pieProperties> pieData = new List<pieProperties>();
+            //SqlCommand cmd = new SqlCommand("sp_PieDataGet", con);
+            //cmd.CommandType = CommandType.StoredProcedure;
+            //DataSet ds = new DataSet();
+            //SqlDataAdapter adp = new SqlDataAdapter(cmd);
+            //adp.Fill(ds);
+            //foreach (DataRow item in ds.Tables[0].Rows)
+            //{
+            //    pieProperties model = new pieProperties();
+            //    model.Name = Convert.ToString(item["Name"]);
+            //    model.Y = Convert.ToInt32(item["Y"]);
+            //    //  model.Total = Convert.ToInt32(item["Total"]);
+            //    pieData.Add(model);
+            //}
+
+
+            int total = 13150;
+
+            int present = Present;
+            int absent = total - present;
+            pieProperties totalModel = new pieProperties();
+            totalModel.Name = "Total";
+            totalModel.Y = total;
+            pieData.Add(totalModel);
+            pieProperties presentModel = new pieProperties();
+            presentModel.Name = "Present";
+            presentModel.Y = present;
+            pieData.Add(presentModel);
+            pieProperties absentModel = new pieProperties();
+            absentModel.Name = "Absent";
+            absentModel.Y = absent;
+            pieData.Add(absentModel);
+
+
+            return Json(pieData);
+
+
+
+            //List<Center> centerData;
+            //Dictionary<string, double> locationData = new Dictionary<string, double>();
+            //List<BarProperties> barchartData = new List<BarProperties>();
+            //using (var httpClient = new HttpClient())
+            //{
+            //    using (var response = httpClient.GetAsync("http://13.71.52.38/api/CenterDetail"))
+            //    {
+            //        string apiResponse = response.Result.Content.ReadAsStringAsync().Result;
+            //        var settings = new JsonSerializerSettings
+            //        {
+            //            NullValueHandling = NullValueHandling.Ignore,
+            //            MissingMemberHandling = MissingMemberHandling.Ignore
+            //        };
+            //        centerData = JsonConvert.DeserializeObject<List<Center>>(apiResponse, settings);
+            //    }
+            //    using (var response = httpClient.GetAsync("http://13.71.52.38/api/CenterDetail/LocationCount"))
+            //    {
+            //        string apiResponse = response.Result.Content.ReadAsStringAsync().Result;
+            //        var settings = new JsonSerializerSettings
+            //        {
+            //            NullValueHandling = NullValueHandling.Ignore,
+            //            MissingMemberHandling = MissingMemberHandling.Ignore
+            //        };
+            //        locationData = JsonConvert.DeserializeObject<Dictionary<string, double>>(apiResponse, settings);
+            //    }
+            //}
+
+            //foreach (var location in locationData.Keys)
+            //{
+
+            //    BarProperties barProperty = new BarProperties();
+            //    barProperty.Total = centerData.Where(c => c.location == location).Sum(c => c.capacity);
+            //    barProperty.Location = location;
+            //   // barProperty.Present = locationData[location];
+            //    if (location == "Ambala")
+            //    {
+            //        barProperty.Present = Present;
+            //    }
+            //    barProperty.Absent = barProperty.Total - barProperty.Present;
+            //    barchartData.Add(barProperty);
+            //}
+            //return Json(barchartData);
+
+        }
+
+
+
         [HttpGet]
         public IActionResult KURUKSHETRA()
         {
             return View();
         }
+
+
+        [HttpPost]
+        public ActionResult KURUKSHETRA(BarProperties param, int Present)
+        {
+            List<pieProperties> pieData = new List<pieProperties>();
+            //SqlCommand cmd = new SqlCommand("sp_PieDataGet", con);
+            //cmd.CommandType = CommandType.StoredProcedure;
+            //DataSet ds = new DataSet();
+            //SqlDataAdapter adp = new SqlDataAdapter(cmd);
+            //adp.Fill(ds);
+            //foreach (DataRow item in ds.Tables[0].Rows)
+            //{
+            //    pieProperties model = new pieProperties();
+            //    model.Name = Convert.ToString(item["Name"]);
+            //    model.Y = Convert.ToInt32(item["Y"]);
+            //    //  model.Total = Convert.ToInt32(item["Total"]);
+            //    pieData.Add(model);
+            //}
+
+
+            int total = 14000;
+            int present = Present;
+            int absent = total - present;
+            pieProperties totalModel = new pieProperties();
+            totalModel.Name = "Total";
+            totalModel.Y = total;
+            pieData.Add(totalModel);
+            pieProperties presentModel = new pieProperties();
+            presentModel.Name = "Present";
+            presentModel.Y = present;
+            pieData.Add(presentModel);
+            pieProperties absentModel = new pieProperties();
+            absentModel.Name = "Absent";
+            absentModel.Y = absent;
+            pieData.Add(absentModel);
+
+
+            return Json(pieData);
+
+
+
+            //List<Center> centerData;
+            //Dictionary<string, double> locationData = new Dictionary<string, double>();
+            //List<BarProperties> barchartData = new List<BarProperties>();
+            //using (var httpClient = new HttpClient())
+            //{
+            //    using (var response = httpClient.GetAsync("http://13.71.52.38/api/CenterDetail"))
+            //    {
+            //        string apiResponse = response.Result.Content.ReadAsStringAsync().Result;
+            //        var settings = new JsonSerializerSettings
+            //        {
+            //            NullValueHandling = NullValueHandling.Ignore,
+            //            MissingMemberHandling = MissingMemberHandling.Ignore
+            //        };
+            //        centerData = JsonConvert.DeserializeObject<List<Center>>(apiResponse, settings);
+            //    }
+            //    using (var response = httpClient.GetAsync("http://13.71.52.38/api/CenterDetail/LocationCount"))
+            //    {
+            //        string apiResponse = response.Result.Content.ReadAsStringAsync().Result;
+            //        var settings = new JsonSerializerSettings
+            //        {
+            //            NullValueHandling = NullValueHandling.Ignore,
+            //            MissingMemberHandling = MissingMemberHandling.Ignore
+            //        };
+            //        locationData = JsonConvert.DeserializeObject<Dictionary<string, double>>(apiResponse, settings);
+            //    }
+            //}
+
+            //foreach (var location in locationData.Keys)
+            //{
+
+            //    BarProperties barProperty = new BarProperties();
+            //    barProperty.Total = centerData.Where(c => c.location == location).Sum(c => c.capacity);
+            //    barProperty.Location = location;
+            //   // barProperty.Present = locationData[location];
+            //    if (location == "Ambala")
+            //    {
+            //        barProperty.Present = Present;
+            //    }
+            //    barProperty.Absent = barProperty.Total - barProperty.Present;
+            //    barchartData.Add(barProperty);
+            //}
+            //return Json(barchartData);
+
+        }
+
 
 
         [HttpGet]
@@ -231,16 +489,275 @@ namespace RollCall.Areas.evening.Controllers
         }
 
 
+        [HttpPost]
+        public ActionResult PANCHKULA(BarProperties param, int Present)
+        {
+            List<pieProperties> pieData = new List<pieProperties>();
+            //SqlCommand cmd = new SqlCommand("sp_PieDataGet", con);
+            //cmd.CommandType = CommandType.StoredProcedure;
+            //DataSet ds = new DataSet();
+            //SqlDataAdapter adp = new SqlDataAdapter(cmd);
+            //adp.Fill(ds);
+            //foreach (DataRow item in ds.Tables[0].Rows)
+            //{
+            //    pieProperties model = new pieProperties();
+            //    model.Name = Convert.ToString(item["Name"]);
+            //    model.Y = Convert.ToInt32(item["Y"]);
+            //    //  model.Total = Convert.ToInt32(item["Total"]);
+            //    pieData.Add(model);
+            //}
+
+
+            int total = 0;
+            int present = Present;
+            int absent = total - present;
+            pieProperties totalModel = new pieProperties();
+            totalModel.Name = "Total";
+            totalModel.Y = total;
+            pieData.Add(totalModel);
+            pieProperties presentModel = new pieProperties();
+            presentModel.Name = "Present";
+            presentModel.Y = present;
+            pieData.Add(presentModel);
+            pieProperties absentModel = new pieProperties();
+            absentModel.Name = "Absent";
+            absentModel.Y = absent;
+            pieData.Add(absentModel);
+
+
+            return Json(pieData);
+
+
+
+            //List<Center> centerData;
+            //Dictionary<string, double> locationData = new Dictionary<string, double>();
+            //List<BarProperties> barchartData = new List<BarProperties>();
+            //using (var httpClient = new HttpClient())
+            //{
+            //    using (var response = httpClient.GetAsync("http://13.71.52.38/api/CenterDetail"))
+            //    {
+            //        string apiResponse = response.Result.Content.ReadAsStringAsync().Result;
+            //        var settings = new JsonSerializerSettings
+            //        {
+            //            NullValueHandling = NullValueHandling.Ignore,
+            //            MissingMemberHandling = MissingMemberHandling.Ignore
+            //        };
+            //        centerData = JsonConvert.DeserializeObject<List<Center>>(apiResponse, settings);
+            //    }
+            //    using (var response = httpClient.GetAsync("http://13.71.52.38/api/CenterDetail/LocationCount"))
+            //    {
+            //        string apiResponse = response.Result.Content.ReadAsStringAsync().Result;
+            //        var settings = new JsonSerializerSettings
+            //        {
+            //            NullValueHandling = NullValueHandling.Ignore,
+            //            MissingMemberHandling = MissingMemberHandling.Ignore
+            //        };
+            //        locationData = JsonConvert.DeserializeObject<Dictionary<string, double>>(apiResponse, settings);
+            //    }
+            //}
+
+            //foreach (var location in locationData.Keys)
+            //{
+
+            //    BarProperties barProperty = new BarProperties();
+            //    barProperty.Total = centerData.Where(c => c.location == location).Sum(c => c.capacity);
+            //    barProperty.Location = location;
+            //   // barProperty.Present = locationData[location];
+            //    if (location == "Ambala")
+            //    {
+            //        barProperty.Present = Present;
+            //    }
+            //    barProperty.Absent = barProperty.Total - barProperty.Present;
+            //    barchartData.Add(barProperty);
+            //}
+            //return Json(barchartData);
+
+        }
+
+
+
         [HttpGet]
         public IActionResult YAMUNANAGAR()
         {
             return View();
         }
 
+
+        [HttpPost]
+        public ActionResult YAMUNANAGAR(BarProperties param, int Present)
+        {
+            List<pieProperties> pieData = new List<pieProperties>();
+            //SqlCommand cmd = new SqlCommand("sp_PieDataGet", con);
+            //cmd.CommandType = CommandType.StoredProcedure;
+            //DataSet ds = new DataSet();
+            //SqlDataAdapter adp = new SqlDataAdapter(cmd);
+            //adp.Fill(ds);
+            //foreach (DataRow item in ds.Tables[0].Rows)
+            //{
+            //    pieProperties model = new pieProperties();
+            //    model.Name = Convert.ToString(item["Name"]);
+            //    model.Y = Convert.ToInt32(item["Y"]);
+            //    //  model.Total = Convert.ToInt32(item["Total"]);
+            //    pieData.Add(model);
+            //}
+
+
+            int total = 8238;
+            int present = Present;
+            int absent = total - present;
+            pieProperties totalModel = new pieProperties();
+            totalModel.Name = "Total";
+            totalModel.Y = total;
+            pieData.Add(totalModel);
+            pieProperties presentModel = new pieProperties();
+            presentModel.Name = "Present";
+            presentModel.Y = present;
+            pieData.Add(presentModel);
+            pieProperties absentModel = new pieProperties();
+            absentModel.Name = "Absent";
+            absentModel.Y = absent;
+            pieData.Add(absentModel);
+
+
+            return Json(pieData);
+
+
+
+            //List<Center> centerData;
+            //Dictionary<string, double> locationData = new Dictionary<string, double>();
+            //List<BarProperties> barchartData = new List<BarProperties>();
+            //using (var httpClient = new HttpClient())
+            //{
+            //    using (var response = httpClient.GetAsync("http://13.71.52.38/api/CenterDetail"))
+            //    {
+            //        string apiResponse = response.Result.Content.ReadAsStringAsync().Result;
+            //        var settings = new JsonSerializerSettings
+            //        {
+            //            NullValueHandling = NullValueHandling.Ignore,
+            //            MissingMemberHandling = MissingMemberHandling.Ignore
+            //        };
+            //        centerData = JsonConvert.DeserializeObject<List<Center>>(apiResponse, settings);
+            //    }
+            //    using (var response = httpClient.GetAsync("http://13.71.52.38/api/CenterDetail/LocationCount"))
+            //    {
+            //        string apiResponse = response.Result.Content.ReadAsStringAsync().Result;
+            //        var settings = new JsonSerializerSettings
+            //        {
+            //            NullValueHandling = NullValueHandling.Ignore,
+            //            MissingMemberHandling = MissingMemberHandling.Ignore
+            //        };
+            //        locationData = JsonConvert.DeserializeObject<Dictionary<string, double>>(apiResponse, settings);
+            //    }
+            //}
+
+            //foreach (var location in locationData.Keys)
+            //{
+
+            //    BarProperties barProperty = new BarProperties();
+            //    barProperty.Total = centerData.Where(c => c.location == location).Sum(c => c.capacity);
+            //    barProperty.Location = location;
+            //   // barProperty.Present = locationData[location];
+            //    if (location == "Ambala")
+            //    {
+            //        barProperty.Present = Present;
+            //    }
+            //    barProperty.Absent = barProperty.Total - barProperty.Present;
+            //    barchartData.Add(barProperty);
+            //}
+            //return Json(barchartData);
+
+        }
+
+
         [HttpGet]
         public IActionResult FARIDABAD()
         {
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult FARIDABAD(BarProperties param, int Present)
+        {
+            List<pieProperties> pieData = new List<pieProperties>();
+            //SqlCommand cmd = new SqlCommand("sp_PieDataGet", con);
+            //cmd.CommandType = CommandType.StoredProcedure;
+            //DataSet ds = new DataSet();
+            //SqlDataAdapter adp = new SqlDataAdapter(cmd);
+            //adp.Fill(ds);
+            //foreach (DataRow item in ds.Tables[0].Rows)
+            //{
+            //    pieProperties model = new pieProperties();
+            //    model.Name = Convert.ToString(item["Name"]);
+            //    model.Y = Convert.ToInt32(item["Y"]);
+            //    //  model.Total = Convert.ToInt32(item["Total"]);
+            //    pieData.Add(model);
+            //}
+
+
+            int total = 0;
+            int present = Present;
+            int absent = total - present;
+            pieProperties totalModel = new pieProperties();
+            totalModel.Name = "Total";
+            totalModel.Y = total;
+            pieData.Add(totalModel);
+            pieProperties presentModel = new pieProperties();
+            presentModel.Name = "Present";
+            presentModel.Y = present;
+            pieData.Add(presentModel);
+            pieProperties absentModel = new pieProperties();
+            absentModel.Name = "Absent";
+            absentModel.Y = absent;
+            pieData.Add(absentModel);
+
+
+            return Json(pieData);
+
+
+
+            //List<Center> centerData;
+            //Dictionary<string, double> locationData = new Dictionary<string, double>();
+            //List<BarProperties> barchartData = new List<BarProperties>();
+            //using (var httpClient = new HttpClient())
+            //{
+            //    using (var response = httpClient.GetAsync("http://13.71.52.38/api/CenterDetail"))
+            //    {
+            //        string apiResponse = response.Result.Content.ReadAsStringAsync().Result;
+            //        var settings = new JsonSerializerSettings
+            //        {
+            //            NullValueHandling = NullValueHandling.Ignore,
+            //            MissingMemberHandling = MissingMemberHandling.Ignore
+            //        };
+            //        centerData = JsonConvert.DeserializeObject<List<Center>>(apiResponse, settings);
+            //    }
+            //    using (var response = httpClient.GetAsync("http://13.71.52.38/api/CenterDetail/LocationCount"))
+            //    {
+            //        string apiResponse = response.Result.Content.ReadAsStringAsync().Result;
+            //        var settings = new JsonSerializerSettings
+            //        {
+            //            NullValueHandling = NullValueHandling.Ignore,
+            //            MissingMemberHandling = MissingMemberHandling.Ignore
+            //        };
+            //        locationData = JsonConvert.DeserializeObject<Dictionary<string, double>>(apiResponse, settings);
+            //    }
+            //}
+
+            //foreach (var location in locationData.Keys)
+            //{
+
+            //    BarProperties barProperty = new BarProperties();
+            //    barProperty.Total = centerData.Where(c => c.location == location).Sum(c => c.capacity);
+            //    barProperty.Location = location;
+            //   // barProperty.Present = locationData[location];
+            //    if (location == "Ambala")
+            //    {
+            //        barProperty.Present = Present;
+            //    }
+            //    barProperty.Absent = barProperty.Total - barProperty.Present;
+            //    barchartData.Add(barProperty);
+            //}
+            //return Json(barchartData);
+
         }
 
         [HttpGet]
@@ -250,20 +767,368 @@ namespace RollCall.Areas.evening.Controllers
         }
 
 
+        [HttpPost]
+        public ActionResult GURUGRAM(BarProperties param, int Present)
+        {
+            List<pieProperties> pieData = new List<pieProperties>();
+            //SqlCommand cmd = new SqlCommand("sp_PieDataGet", con);
+            //cmd.CommandType = CommandType.StoredProcedure;
+            //DataSet ds = new DataSet();
+            //SqlDataAdapter adp = new SqlDataAdapter(cmd);
+            //adp.Fill(ds);
+            //foreach (DataRow item in ds.Tables[0].Rows)
+            //{
+            //    pieProperties model = new pieProperties();
+            //    model.Name = Convert.ToString(item["Name"]);
+            //    model.Y = Convert.ToInt32(item["Y"]);
+            //    //  model.Total = Convert.ToInt32(item["Total"]);
+            //    pieData.Add(model);
+            //}
+
+
+            int total = 12200;
+            int present = Present;
+            int absent = total - present;
+            pieProperties totalModel = new pieProperties();
+            totalModel.Name = "Total";
+            totalModel.Y = total;
+            pieData.Add(totalModel);
+            pieProperties presentModel = new pieProperties();
+            presentModel.Name = "Present";
+            presentModel.Y = present;
+            pieData.Add(presentModel);
+            pieProperties absentModel = new pieProperties();
+            absentModel.Name = "Absent";
+            absentModel.Y = absent;
+            pieData.Add(absentModel);
+
+
+            return Json(pieData);
+
+
+
+            //List<Center> centerData;
+            //Dictionary<string, double> locationData = new Dictionary<string, double>();
+            //List<BarProperties> barchartData = new List<BarProperties>();
+            //using (var httpClient = new HttpClient())
+            //{
+            //    using (var response = httpClient.GetAsync("http://13.71.52.38/api/CenterDetail"))
+            //    {
+            //        string apiResponse = response.Result.Content.ReadAsStringAsync().Result;
+            //        var settings = new JsonSerializerSettings
+            //        {
+            //            NullValueHandling = NullValueHandling.Ignore,
+            //            MissingMemberHandling = MissingMemberHandling.Ignore
+            //        };
+            //        centerData = JsonConvert.DeserializeObject<List<Center>>(apiResponse, settings);
+            //    }
+            //    using (var response = httpClient.GetAsync("http://13.71.52.38/api/CenterDetail/LocationCount"))
+            //    {
+            //        string apiResponse = response.Result.Content.ReadAsStringAsync().Result;
+            //        var settings = new JsonSerializerSettings
+            //        {
+            //            NullValueHandling = NullValueHandling.Ignore,
+            //            MissingMemberHandling = MissingMemberHandling.Ignore
+            //        };
+            //        locationData = JsonConvert.DeserializeObject<Dictionary<string, double>>(apiResponse, settings);
+            //    }
+            //}
+
+            //foreach (var location in locationData.Keys)
+            //{
+
+            //    BarProperties barProperty = new BarProperties();
+            //    barProperty.Total = centerData.Where(c => c.location == location).Sum(c => c.capacity);
+            //    barProperty.Location = location;
+            //   // barProperty.Present = locationData[location];
+            //    if (location == "Ambala")
+            //    {
+            //        barProperty.Present = Present;
+            //    }
+            //    barProperty.Absent = barProperty.Total - barProperty.Present;
+            //    barchartData.Add(barProperty);
+            //}
+            //return Json(barchartData);
+
+        }
+
         [HttpGet]
         public IActionResult MAHENDRAGARH()
         {
             return View();
         }
+
+
+        [HttpPost]
+        public ActionResult MAHENDRAGARH(BarProperties param, int Present)
+        {
+            List<pieProperties> pieData = new List<pieProperties>();
+            //SqlCommand cmd = new SqlCommand("sp_PieDataGet", con);
+            //cmd.CommandType = CommandType.StoredProcedure;
+            //DataSet ds = new DataSet();
+            //SqlDataAdapter adp = new SqlDataAdapter(cmd);
+            //adp.Fill(ds);
+            //foreach (DataRow item in ds.Tables[0].Rows)
+            //{
+            //    pieProperties model = new pieProperties();
+            //    model.Name = Convert.ToString(item["Name"]);
+            //    model.Y = Convert.ToInt32(item["Y"]);
+            //    //  model.Total = Convert.ToInt32(item["Total"]);
+            //    pieData.Add(model);
+            //}
+
+
+            int total = 0;
+            int present = Present;
+            int absent = total - present;
+            pieProperties totalModel = new pieProperties();
+            totalModel.Name = "Total";
+            totalModel.Y = total;
+            pieData.Add(totalModel);
+            pieProperties presentModel = new pieProperties();
+            presentModel.Name = "Present";
+            presentModel.Y = present;
+            pieData.Add(presentModel);
+            pieProperties absentModel = new pieProperties();
+            absentModel.Name = "Absent";
+            absentModel.Y = absent;
+            pieData.Add(absentModel);
+
+
+            return Json(pieData);
+
+
+
+            //List<Center> centerData;
+            //Dictionary<string, double> locationData = new Dictionary<string, double>();
+            //List<BarProperties> barchartData = new List<BarProperties>();
+            //using (var httpClient = new HttpClient())
+            //{
+            //    using (var response = httpClient.GetAsync("http://13.71.52.38/api/CenterDetail"))
+            //    {
+            //        string apiResponse = response.Result.Content.ReadAsStringAsync().Result;
+            //        var settings = new JsonSerializerSettings
+            //        {
+            //            NullValueHandling = NullValueHandling.Ignore,
+            //            MissingMemberHandling = MissingMemberHandling.Ignore
+            //        };
+            //        centerData = JsonConvert.DeserializeObject<List<Center>>(apiResponse, settings);
+            //    }
+            //    using (var response = httpClient.GetAsync("http://13.71.52.38/api/CenterDetail/LocationCount"))
+            //    {
+            //        string apiResponse = response.Result.Content.ReadAsStringAsync().Result;
+            //        var settings = new JsonSerializerSettings
+            //        {
+            //            NullValueHandling = NullValueHandling.Ignore,
+            //            MissingMemberHandling = MissingMemberHandling.Ignore
+            //        };
+            //        locationData = JsonConvert.DeserializeObject<Dictionary<string, double>>(apiResponse, settings);
+            //    }
+            //}
+
+            //foreach (var location in locationData.Keys)
+            //{
+
+            //    BarProperties barProperty = new BarProperties();
+            //    barProperty.Total = centerData.Where(c => c.location == location).Sum(c => c.capacity);
+            //    barProperty.Location = location;
+            //   // barProperty.Present = locationData[location];
+            //    if (location == "Ambala")
+            //    {
+            //        barProperty.Present = Present;
+            //    }
+            //    barProperty.Absent = barProperty.Total - barProperty.Present;
+            //    barchartData.Add(barProperty);
+            //}
+            //return Json(barchartData);
+
+        }
+
+
         [HttpGet]
         public IActionResult PANIPAT()
         {
             return View();
         }
+
+
+        [HttpPost]
+        public ActionResult PANIPAT(BarProperties param, int Present)
+        {
+            List<pieProperties> pieData = new List<pieProperties>();
+            //SqlCommand cmd = new SqlCommand("sp_PieDataGet", con);
+            //cmd.CommandType = CommandType.StoredProcedure;
+            //DataSet ds = new DataSet();
+            //SqlDataAdapter adp = new SqlDataAdapter(cmd);
+            //adp.Fill(ds);
+            //foreach (DataRow item in ds.Tables[0].Rows)
+            //{
+            //    pieProperties model = new pieProperties();
+            //    model.Name = Convert.ToString(item["Name"]);
+            //    model.Y = Convert.ToInt32(item["Y"]);
+            //    //  model.Total = Convert.ToInt32(item["Total"]);
+            //    pieData.Add(model);
+            //}
+
+
+            int total = 8325;
+            int present = Present;
+            int absent = total - present;
+            pieProperties totalModel = new pieProperties();
+            totalModel.Name = "Total";
+            totalModel.Y = total;
+            pieData.Add(totalModel);
+            pieProperties presentModel = new pieProperties();
+            presentModel.Name = "Present";
+            presentModel.Y = present;
+            pieData.Add(presentModel);
+            pieProperties absentModel = new pieProperties();
+            absentModel.Name = "Absent";
+            absentModel.Y = absent;
+            pieData.Add(absentModel);
+
+
+            return Json(pieData);
+
+
+
+            //List<Center> centerData;
+            //Dictionary<string, double> locationData = new Dictionary<string, double>();
+            //List<BarProperties> barchartData = new List<BarProperties>();
+            //using (var httpClient = new HttpClient())
+            //{
+            //    using (var response = httpClient.GetAsync("http://13.71.52.38/api/CenterDetail"))
+            //    {
+            //        string apiResponse = response.Result.Content.ReadAsStringAsync().Result;
+            //        var settings = new JsonSerializerSettings
+            //        {
+            //            NullValueHandling = NullValueHandling.Ignore,
+            //            MissingMemberHandling = MissingMemberHandling.Ignore
+            //        };
+            //        centerData = JsonConvert.DeserializeObject<List<Center>>(apiResponse, settings);
+            //    }
+            //    using (var response = httpClient.GetAsync("http://13.71.52.38/api/CenterDetail/LocationCount"))
+            //    {
+            //        string apiResponse = response.Result.Content.ReadAsStringAsync().Result;
+            //        var settings = new JsonSerializerSettings
+            //        {
+            //            NullValueHandling = NullValueHandling.Ignore,
+            //            MissingMemberHandling = MissingMemberHandling.Ignore
+            //        };
+            //        locationData = JsonConvert.DeserializeObject<Dictionary<string, double>>(apiResponse, settings);
+            //    }
+            //}
+
+            //foreach (var location in locationData.Keys)
+            //{
+
+            //    BarProperties barProperty = new BarProperties();
+            //    barProperty.Total = centerData.Where(c => c.location == location).Sum(c => c.capacity);
+            //    barProperty.Location = location;
+            //   // barProperty.Present = locationData[location];
+            //    if (location == "Ambala")
+            //    {
+            //        barProperty.Present = Present;
+            //    }
+            //    barProperty.Absent = barProperty.Total - barProperty.Present;
+            //    barchartData.Add(barProperty);
+            //}
+            //return Json(barchartData);
+
+        }
+
+
         [HttpGet]
         public IActionResult REWARI()
         {
             return View();
+        }
+
+
+
+        [HttpPost]
+        public ActionResult REWARI(BarProperties param, int Present)
+        {
+            List<pieProperties> pieData = new List<pieProperties>();
+            //SqlCommand cmd = new SqlCommand("sp_PieDataGet", con);
+            //cmd.CommandType = CommandType.StoredProcedure;
+            //DataSet ds = new DataSet();
+            //SqlDataAdapter adp = new SqlDataAdapter(cmd);
+            //adp.Fill(ds);
+            //foreach (DataRow item in ds.Tables[0].Rows)
+            //{
+            //    pieProperties model = new pieProperties();
+            //    model.Name = Convert.ToString(item["Name"]);
+            //    model.Y = Convert.ToInt32(item["Y"]);
+            //    //  model.Total = Convert.ToInt32(item["Total"]);
+            //    pieData.Add(model);
+            //}
+
+
+            int total = 0;
+            int present = Present;
+            int absent = total - present;
+            pieProperties totalModel = new pieProperties();
+            totalModel.Name = "Total";
+            totalModel.Y = total;
+            pieData.Add(totalModel);
+            pieProperties presentModel = new pieProperties();
+            presentModel.Name = "Present";
+            presentModel.Y = present;
+            pieData.Add(presentModel);
+            pieProperties absentModel = new pieProperties();
+            absentModel.Name = "Absent";
+            absentModel.Y = absent;
+            pieData.Add(absentModel);
+
+
+            return Json(pieData);
+
+
+
+            //List<Center> centerData;
+            //Dictionary<string, double> locationData = new Dictionary<string, double>();
+            //List<BarProperties> barchartData = new List<BarProperties>();
+            //using (var httpClient = new HttpClient())
+            //{
+            //    using (var response = httpClient.GetAsync("http://13.71.52.38/api/CenterDetail"))
+            //    {
+            //        string apiResponse = response.Result.Content.ReadAsStringAsync().Result;
+            //        var settings = new JsonSerializerSettings
+            //        {
+            //            NullValueHandling = NullValueHandling.Ignore,
+            //            MissingMemberHandling = MissingMemberHandling.Ignore
+            //        };
+            //        centerData = JsonConvert.DeserializeObject<List<Center>>(apiResponse, settings);
+            //    }
+            //    using (var response = httpClient.GetAsync("http://13.71.52.38/api/CenterDetail/LocationCount"))
+            //    {
+            //        string apiResponse = response.Result.Content.ReadAsStringAsync().Result;
+            //        var settings = new JsonSerializerSettings
+            //        {
+            //            NullValueHandling = NullValueHandling.Ignore,
+            //            MissingMemberHandling = MissingMemberHandling.Ignore
+            //        };
+            //        locationData = JsonConvert.DeserializeObject<Dictionary<string, double>>(apiResponse, settings);
+            //    }
+            //}
+
+            //foreach (var location in locationData.Keys)
+            //{
+
+            //    BarProperties barProperty = new BarProperties();
+            //    barProperty.Total = centerData.Where(c => c.location == location).Sum(c => c.capacity);
+            //    barProperty.Location = location;
+            //   // barProperty.Present = locationData[location];
+            //    if (location == "Ambala")
+            //    {
+            //        barProperty.Present = Present;
+            //    }
+            //    barProperty.Absent = barProperty.Total - barProperty.Present;
+            //    barchartData.Add(barProperty);
+            //}
+            //return Json(barchartData);
+
         }
 
 
